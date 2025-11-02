@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GyulRose Cakes | Custom Cakes & Sweet Elegance</title>
+    <meta name="description" content="GyulRose Cakes creates elegant, handcrafted cakes for every occasion. Custom birthday cakes, wedding cakes, and cookies in London. Order now via WhatsApp!">
+    <meta name="keywords" content="custom cakes, birthday cakes, wedding cakes, London bakery, GyulRose, elegant cakes, cookies, cupcakes">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            color: #5a4a42;
+            background: linear-gradient(135deg, #fffaf7 0%, #f9e6e6 100%);
+            overflow-x: hidden;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 250, 247, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(214, 180, 106, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d6b46a;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #5a4a42;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #d6b46a;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d6b46a;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #5a4a42;
+            cursor: pointer;
+        }
+
+        /* Main sections */
+        main {
+            margin-top: 80px;
+        }
+
+        section {
+            padding: 4rem 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        #home {
+            background: linear-gradient(135deg, #fffaf7 0%, #f9e6e6 50%, #f7f0e8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            text-align: left;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #5a4a42;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text .slogan {
+            font-size: 1.3rem;
+            color: #d6b46a;
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: #7a6a62;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d6b46a, #c9a665);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(214, 180, 106, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d6b46a;
+            padding: 1rem 2rem;
+            border: 2px solid #d6b46a;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #d6b46a;
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 8px solid white;
+        }
+
+        /* Featured Cakes */
+        .featured-cakes {
+            margin-top: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: #5a4a42;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '🌸';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+
+        .cakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cake-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 3px solid #f7f0e8;
+        }
+
+        .cake-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cake-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .cake-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #5a4a42;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .cake-card .flavor {
+            color: #d6b46a;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .cake-card p {
+            color: #7a6a62;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .ingredients {
+            background: #f7f0e8;
+            padding: 0.8rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #5a4a42;
+        }
+
+        .ingredients strong {
+            color: #d6b46a;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #d6b46a;
+            margin-bottom: 1rem;
+        }
+
+        /* Catalog Section */
+        #catalog {
+            background: white;
+        }
+
+        .catalog-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #f7f0e8;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #5a4a42;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #d6b46a;
+            border-color: #d6b46a;
+            color: white;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .catalog-item {
+            background: #fffaf7;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .catalog-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .catalog-item-content {
+            padding: 1.5rem;
+        }
+
+        .catalog-item h3 {
+            font-family: 'Playfair Display', serif;
+            color: #5a4a42;
+            margin-bottom: 0.5rem;
+        }
+
+        .catalog-item .flavor {
+            color: #d6b46a;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .catalog-item p {
+            color: #7a6a62;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .catalog-item .ingredients {
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .catalog-item .price {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Order Section */
+        #order {
+            background: linear-gradient(135deg, #f7f0e8 0%, #f9e6e6 100%);
+        }
+
+        .order-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .order-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #5a4a42;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 2px solid #f7f0e8;
+            border-radius: 10px;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d6b46a;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .whatsapp-order {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: white;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: #fffaf7;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-item i {
+            font-size: 3rem;
+            color: #d6b46a;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            font-family: 'Playfair Display', serif;
+            color: #5a4a42;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item a {
+            color: #7a6a62;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #d6b46a;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: #f7f0e8;
+            border-radius: 15px;
+            text-decoration: none;
+            color: #5a4a42;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #d6b46a;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #5a4a42;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #d6b46a;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                transition: top 0.3s ease;
+            }
+
+            nav.active {
+                top: 80px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Add new cake instructions */
+        .add-instructions {
+            background: #fff8e1;
+            border: 2px dashed #d6b46a;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .add-instructions h3 {
+            color: #d6b46a;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .add-instructions p {
+            margin-bottom: 1rem;
+        }
+
+        .add-instructions code {
+            background: #f7f0e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .template-code {
+            background: #2d3748;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .template-code pre {
+            margin: 0;
+            padding: 0;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        .template-code code {
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            color: #e2e8f0;
+        }
+
+        .copy-btn {
+            background: #d6b46a;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #c9a665;
+        }
+
+        .copy-btn.copied {
+            background: #25d366;
+        }
+
+        /* CSS Variables for easy folder name changes */
+        :root {
+            --images-folder: "cakes"; /* CHANGE THIS TO RENAME YOUR IMAGES FOLDER */
+        }
+
+        .img-path {
+            /* This class will be updated by JavaScript for easy folder renaming */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#home" class="logo">GyulRose Cakes</a>
+            
+            <nav id="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#catalog">Gallery</a></li>
+                    <li><a href="#order">Order Online</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <a href="https://wa.me/447510350010?text=Hello! I'm interested in your cakes." class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Elegant Cakes for Every Occasion</h1>
+                        <p class="slogan">Sweet elegance in every slice</p>
+                        <p>GyulRose Cakes creates elegant, handcrafted cakes for every occasion, blending European recipes with love and creativity. From birthdays to weddings, each cake tells your unique story through taste and beauty.</p>
+                        
+                        <div class="cta-buttons">
+                            <a href="#catalog" class="btn-primary">
+                                <i class="fas fa-cake-candles"></i>
+                                View Gallery
+                            </a>
+                            <a href="#order" class="btn-secondary">Order Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <img src="images/cakes/9f3a8b4f-0855-49b4-ab7b-2211dcb04f32.jpeg" alt="Elegant Portrait Cake" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Featured Cakes -->
+                <div class="featured-cakes">
+                    <h2 class="section-title">Featured Creations</h2>
+                    <div class="cakes-grid">
+                        <div class="cake-card">
+                            <img src="images/cakes/5c2c0b33-9898-48a4-a314-2360dc78159c.jpeg" alt="Elegant Pink Birthday Cake" loading="lazy">
+                            <h3>Anna's Birthday Celebration</h3>
+                            <p class="flavor">Vanilla with Berry Filling</p>
+                            <p>Elegant celebration cake featuring smooth buttercream, delicate sugar roses, and personalized "Happy Birthday Anna" message. Adorned with colorful macarons and artistic piping.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, fresh berries, buttercream frosting, sugar roses, macarons
+                            </div>
+                            <div class="price">From £75</div>
+                            <button class="btn-primary" onclick="orderCake('Anna\'s Birthday Celebration')">Order This</button>
+                        </div>
+                        
+                        <div class="cake-card">
+                            <img src="images/cakes/0be49056-fe4b-4d56-9e80-f9ca641da00b.jpeg" alt="Chocolate Cat Garden Cake" loading="lazy">
+                            <h3>Chocolate Cat Garden</h3>
+                            <p class="flavor">Rich Chocolate with Buttercream</p>
+                            <p>Whimsical chocolate cake featuring a cocoa powder cat design with a beautiful garden theme. Decorated with piped grass, edible bees, and delicate daisies.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Chocolate sponge, cocoa powder art, vanilla buttercream, edible decorations
+                            </div>
+                            <div class="price">From £65</div>
+                            <button class="btn-primary" onclick="orderCake('Chocolate Cat Garden')">Order This</button>
+                        </div>
+                        
+                        <div class="cake-card">
+                            <img src="images/cakes/0bcb69e6-fba4-447d-9ee0-721dc2d8b95c.jpeg" alt="Blueberry Chocolate Drip Cake" loading="lazy">
+                            <h3>Blueberry Chocolate Drip</h3>
+                            <p class="flavor">Vanilla with Blueberry Compote</p>
+                            <p>Stunning cake with chocolate ganache drip, fresh blueberries, and beautiful floral arrangements. The perfect combination of elegant and rustic.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, chocolate ganache, fresh blueberries, sugar flowers
+                            </div>
+                            <div class="price">From £70</div>
+                            <button class="btn-primary" onclick="orderCake('Blueberry Chocolate Drip')">Order This</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog/Gallery Section -->
+        <section id="catalog">
+            <div class="container">
+                <h2 class="section-title">Our Cake Gallery</h2>
+                
+                <div class="catalog-filters">
+                    <button class="filter-btn active" onclick="filterCatalog('all')">All Cakes</button>
+                    <button class="filter-btn" onclick="filterCatalog('birthday')">Birthday Cakes</button>
+                    <button class="filter-btn" onclick="filterCatalog('baby')">Baby Cakes</button>
+                    <button class="filter-btn" onclick="filterCatalog('corporate')">Corporate</button>
+                    <button class="filter-btn" onclick="filterCatalog('themed')">Themed Cakes</button>
+                </div>
+                
+                <div class="catalog-grid">
+                    <div class="catalog-item" data-category="corporate">
+                        <img src="images/cakes/41a40bf6-2683-4e47-8eec-da9e82ae9ac2.jpeg" alt="Corporate Thank You Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Corporate Thank You</h3>
+                            <p class="flavor">Classic Vanilla</p>
+                            <p>Elegant corporate cake with professional piping in teal and orange. Perfect for appreciation events and workplace celebrations.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, vanilla buttercream, professional piping
+                            </div>
+                            <div class="price">£60</div>
+                            <button class="btn-primary" onclick="orderCake('Corporate Thank You')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="birthday">
+                        <img src="images/cakes/7adaeb34-c525-46d0-9f77-4cb3f4746b73.jpeg" alt="Vintage Pink Birthday Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Vintage Pink Celebration</h3>
+                            <p class="flavor">Vanilla with Strawberry</p>
+                            <p>Sophisticated birthday cake featuring vintage-style sugar roses, elegant piped borders, and a beautiful ballerina topper.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, strawberry filling, buttercream, sugar roses, topper
+                            </div>
+                            <div class="price">£80</div>
+                            <button class="btn-primary" onclick="orderCake('Vintage Pink Celebration')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="birthday">
+                        <img src="images/cakes/5c2c0b33-9898-48a4-a314-2360dc78159c.jpeg" alt="Anna's Elegant Birthday Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Anna's Elegant Birthday</h3>
+                            <p class="flavor">Vanilla with Berry</p>
+                            <p>Personalized birthday cake with elegant sugar flowers, colorful macarons, and delicate hand-piped text.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, berry filling, buttercream, sugar flowers, macarons
+                            </div>
+                            <div class="price">£75</div>
+                            <button class="btn-primary" onclick="orderCake('Anna\'s Elegant Birthday')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="themed">
+                        <img src="images/cakes/0be49056-fe4b-4d56-9e80-f9ca641da00b.jpeg" alt="Chocolate Cat Garden Theme" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Chocolate Cat Garden</h3>
+                            <p class="flavor">Rich Chocolate</p>
+                            <p>Whimsical themed cake with detailed cocoa powder cat artwork and garden scene including bees and flowers.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Chocolate sponge, vanilla buttercream, cocoa art, edible decorations
+                            </div>
+                            <div class="price">£65</div>
+                            <button class="btn-primary" onclick="orderCake('Chocolate Cat Garden')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="birthday">
+                        <img src="images/cakes/0bcb69e6-fba4-447d-9ee0-721dc2d8b95c.jpeg" alt="Blueberry Chocolate Drip Birthday" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Blueberry Chocolate Drip</h3>
+                            <p class="flavor">Vanilla with Blueberry</p>
+                            <p>Modern birthday cake featuring chocolate ganache drip, fresh blueberries, and artistic floral decorations.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, chocolate ganache, fresh blueberries, sugar flowers
+                            </div>
+                            <div class="price">£70</div>
+                            <button class="btn-primary" onclick="orderCake('Blueberry Chocolate Drip')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="baby">
+                        <img src="images/cakes/1f2c505a-adc6-4db6-a058-c633e2c76013.jpeg" alt="Baby Shower Balloon Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Baby Shower Balloons</h3>
+                            <p class="flavor">Classic Vanilla</p>
+                            <p>Adorable baby shower cake featuring cute teddy bear figurine, balloon decorations, and luxury gold flakes.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, vanilla buttercream, fondant decorations, gold flakes
+                            </div>
+                            <div class="price">£85</div>
+                            <button class="btn-primary" onclick="orderCake('Baby Shower Balloons')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="themed">
+                        <img src="images/cakes/17a4c11c-c21c-4fa1-8dfc-2989162bca75.jpeg" alt="Safari Jungle Theme Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Safari Jungle Adventure</h3>
+                            <p class="flavor">Vanilla Celebration</p>
+                            <p>Exciting children's birthday cake with animal figurines, jungle theme, and colorful piped decorations.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, vanilla buttercream, animal figurines, piped decorations
+                            </div>
+                            <div class="price">£75</div>
+                            <button class="btn-primary" onclick="orderCake('Safari Jungle Adventure')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="birthday">
+                        <img src="images/cakes/9f3a8b4f-0855-49b4-ab7b-2211dcb04f32.jpeg" alt="Feminine Portrait Birthday Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Feminine Portrait Elegance</h3>
+                            <p class="flavor">Vanilla with Rose</p>
+                            <p>Sophisticated birthday cake with gold portrait outline, dried palm leaves, and delicate floral arrangements.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, vanilla buttercream, gold detail, dried palm, sugar flowers
+                            </div>
+                            <div class="price">£90</div>
+                            <button class="btn-primary" onclick="orderCake('Feminine Portrait Elegance')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="baby">
+                        <img src="images/cakes/25e8e064-52a7-42f9-b1be-4ff6bbeb312a.jpeg" alt="Two-Tier Baby Boy Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Two-Tier Baby Boy</h3>
+                            <p class="flavor">Classic Vanilla</p>
+                            <p>Adorable two-tier baby boy celebration cake with cute baby figurine, "BABY BOY" lettering, and balloon decorations.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, vanilla buttercream, baby figurine, balloon decorations
+                            </div>
+                            <div class="price">£120</div>
+                            <button class="btn-primary" onclick="orderCake('Two-Tier Baby Boy')">Order This</button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog-item" data-category="birthday">
+                        <img src="images/cakes/025f41d7-a21a-4664-a821-422577bef8bc.jpeg" alt="Rustic Floral Garden Cake" loading="lazy">
+                        <div class="catalog-item-content">
+                            <h3>Rustic Floral Garden</h3>
+                            <p class="flavor">Vanilla with Lemon</p>
+                            <p>Beautiful rustic-style cake with piped buttercream flowers and fresh floral arrangements, perfect for garden parties.</p>
+                            <div class="ingredients">
+                                <strong>Contains:</strong> Vanilla sponge, lemon filling, buttercream flowers, fresh flowers
+                            </div>
+                            <div class="price">£85</div>
+                            <button class="btn-primary" onclick="orderCake('Rustic Floral Garden')">Order This</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions for adding new cakes -->
+                <div class="add-instructions">
+                    <h3>🌟 Add Your New Cakes Here</h3>
+                    <p>To add new cakes to your gallery, simply copy this template and add your cake details:</p>
+                    <div class="template-code">
+                        <div class="copy-btn" onclick="copyTemplate()">📋 Copy Template</div>
+                        <pre><code>&lt;div class="catalog-item" data-category="your-category"&gt;
+    &lt;img src="images/cakes/your-image.jpg" alt="Your Cake Name" loading="lazy"&gt;
+    &lt;div class="catalog-item-content"&gt;
+        &lt;h3&gt;Your Cake Name&lt;/h3&gt;
+        &lt;p class="flavor"&gt;Flavor Description&lt;/p&gt;
+        &lt;p&gt;Your cake description here...&lt;/p&gt;
+        &lt;div class="ingredients"&gt;
+            &lt;strong&gt;Contains:&lt;/strong&gt; Ingredients list
+        &lt;/div&gt;
+        &lt;div class="price"&gt;£XX&lt;/div&gt;
+        &lt;button class="btn-primary" onclick="orderCake('Your Cake Name')"&gt;Order This&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <p style="margin-top: 1rem; color: #7a6a62;"><strong>Categories to use:</strong> <code>birthday</code>, <code>baby</code>, <code>corporate</code>, <code>themed</code>, <code>wedding</code></p>
+                    
+                    <div style="margin-top: 2rem; padding: 1rem; background: #e8f5e8; border-radius: 10px;">
+                        <h4 style="color: #2d5a2d; margin-bottom: 0.5rem;">📁 Easy Folder Renaming</h4>
+                        <p style="color: #2d5a2d; margin-bottom: 1rem;">Want to rename your images folder? Just change the name below and all paths will update automatically!</p>
+                        <label style="display: block; margin-bottom: 0.5rem; color: #2d5a2d; font-weight: 600;">Current folder name:</label>
+                        <select id="folderName" onchange="updateFolderPaths()" style="padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;">
+                            <option value="cakes">cakes (current)</option>
+                            <option value="photos">photos</option>
+                            <option value="gallery">gallery</option>
+                            <option value="cakes-2025">cakes-2025</option>
+                            <option value="my-cakes">my-cakes</option>
+                        </select>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #2d5a2d;">After changing, make sure to rename your folder in GitHub to match!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Section -->
+        <section id="order">
+            <div class="container">
+                <h2 class="section-title">Order Your Custom Cake</h2>
+                <div class="order-container">
+                    <p style="text-align: center; margin-bottom: 2rem; color: #7a6a62;">Fill in your details and we'll get in touch to confirm your order and discuss any special requirements.</p>
+                    
+                    <form class="order-form" id="orderForm">
+                        <div class="form-group">
+                            <div>
+                                <label for="customerName">Full Name *</label>
+                                <input type="text" id="customerName" name="customerName" required>
+                            </div>
+                            <div>
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div>
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                            <div>
+                                <label for="occasion">Occasion *</label>
+                                <select id="occasion" name="occasion" required>
+                                    <option value="">Select Occasion</option>
+                                    <option value="Birthday">Birthday</option>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Baby Shower">Baby Shower</option>
+                                    <option value="Corporate">Corporate Event</option>
+                                    <option value="Anniversary">Anniversary</option>
+                                    <option value="Graduation">Graduation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div>
+                                <label for="cakeFlavor">Preferred Flavor *</label>
+                                <select id="cakeFlavor" name="cakeFlavor" required>
+                                    <option value="">Select Flavor</option>
+                                    <option value="Strawberry">Strawberry 🍓</option>
+                                    <option value="Raspberry">Raspberry</option>
+                                    <option value="Blueberry">Blueberry</option>
+                                    <option value="Vanilla">Vanilla</option>
+                                    <option value="Chocolate">Chocolate</option>
+                                    <option value="Latte">Latte</option>
+                                    <option value="Coffee">Coffee</option>
+                                    <option value="Lemon">Lemon</option>
+                                    <option value="Oreo">Oreo</option>
+                                    <option value="Biscoff">Biscoff</option>
+                                    <option value="Pistachio">Pistachio</option>
+                                    <option value="Caramel">Caramel</option>
+                                    <option value="Mango">Mango</option>
+                                    <option value="Coffee Walnut">Coffee Walnut</option>
+                                    <option value="Carrot Cake">Carrot Cake</option>
+                                    <option value="Napoleon">Napoleon</option>
+                                    <option value="Medovnik">Medovnik Cake</option>
+                                    <option value="Red Velvet">Red Velvet</option>
+                                    <option value="Other">Other (specify in notes)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="servings">Number of People *</label>
+                                <select id="servings" name="servings" required>
+                                    <option value="">Select Size</option>
+                                    <option value="6-8 people">6-8 people (Small)</option>
+                                    <option value="12-15 people">12-15 people (Medium)</option>
+                                    <option value="20-25 people">20-25 people (Large)</option>
+                                    <option value="30+ people">30+ people (Extra Large)</option>
+                                    <option value="Wedding size">Wedding size (50+ people)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div>
+                                <label for="deliveryDate">Date Needed *</label>
+                                <input type="date" id="deliveryDate" name="deliveryDate" required>
+                            </div>
+                            <div>
+                                <label for="budget">Budget Range</label>
+                                <select id="budget" name="budget">
+                                    <option value="">Select Budget</option>
+                                    <option value="£50-£100">£50-£100</option>
+                                    <option value="£100-£200">£100-£200</option>
+                                    <option value="£200-£300">£200-£300</option>
+                                    <option value="£300+">£300+</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full">
+                            <div>
+                                <label for="specialRequests">Special Requests & Cake Description *</label>
+                                <textarea id="specialRequests" name="specialRequests" placeholder="Please describe your ideal cake, color preferences, themes, dietary requirements, or any other special requests..." required></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Order Request
+                        </button>
+                        
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <p style="color: #7a6a62; margin-bottom: 1rem;">Or contact us directly:</p>
+                            <a href="https://wa.me/447510350010?text=Hello! I would like to place a custom cake order." class="whatsapp-order">
+                                <i class="fab fa-whatsapp"></i>
+                                Chat with us on WhatsApp
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <h3>WhatsApp</h3>
+                        <p>For quick orders and questions</p>
+                        <a href="https://wa.me/447510350010">+44 7510 350010</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>Send us your detailed requirements</p>
+                        <a href="/cdn-cgi/l/email-protection#cba2a5ada48bacb2bea7b9a4b8aea8aaa0aeb8e5a8a4a6"><span class="__cf_email__" data-cfemail="147d7a727b54736d6178667b677177757f71673a777b79">[email&#160;protected]</span></a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Location</h3>
+                        <p>Based in London</p>
+                        <p>Pickup & Delivery Available</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://instagram.com/gyulok84" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                        <span>@gyulok84</span>
+                    </a>
+                    
+                    <a href="https://tiktok.com/@gyulrose" class="social-link">
+                        <i class="fab fa-tiktok"></i>
+                        <span>@gyulrose</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#catalog">Gallery</a>
+                <a href="#order">Order Online</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>&copy; 2025 GyulRose Cakes. All rights reserved. | Made with ❤️ in London</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Catalog filtering
+        function filterCatalog(category) {
+            const items = document.querySelectorAll('.catalog-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Order cake function
+        function orderCake(cakeName) {
+            document.getElementById('cakeFlavor').value = cakeName;
+            document.getElementById('specialRequests').value = `I would like to order a ${cakeName}. Please provide more details about this cake and discuss customization options.`;
+            document.getElementById('order').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            let message = "New Cake Order Request:\n\n";
+            
+            for (let [key, value] of formData.entries()) {
+                message += `${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}: ${value}\n`;
+            }
+            
+            // Create WhatsApp message
+            const whatsappUrl = `https://wa.me/447510350010?text=${encodeURIComponent(message)}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Show success message
+            alert('Thank you for your order request! We will contact you shortly via WhatsApp to confirm the details.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Set minimum date for delivery to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const minDate = tomorrow.toISOString().split('T')[0];
+        document.getElementById('deliveryDate').setAttribute('min', minDate);
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.cake-card, .catalog-item, .contact-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Copy template function
+        function copyTemplate() {
+            const templateCode = `<div class="catalog-item" data-category="your-category">
+    <img src="images/cakes/your-image.jpg" alt="Your Cake Name" loading="lazy">
+    <div class="catalog-item-content">
+        <h3>Your Cake Name</h3>
+        <p class="flavor">Flavor Description</p>
+        <p>Your cake description here...</p>
+        <div class="ingredients">
+            <strong>Contains:</strong> Ingredients list
+        </div>
+        <div class="price">£XX</div>
+        <button class="btn-primary" onclick="orderCake('Your Cake Name')">Order This</button>
+    </div>
+</div>`;
+            
+            navigator.clipboard.writeText(templateCode).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                copyBtn.textContent = '✅ Copied!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = '📋 Copy Template';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Template code copied! Check your clipboard.');
+            });
+        }
+
+        // Update folder paths function
+        function updateFolderPaths() {
+            const selectedFolder = document.getElementById('folderName').value;
+            
+            // Update all image paths
+            const images = document.querySelectorAll('img[src*="images/"]');
+            images.forEach(img => {
+                const currentSrc = img.src;
+                const newSrc = currentSrc.replace(/images\/[^\/]+\//, `images/${selectedFolder}/`);
+                img.src = newSrc;
+            });
+            
+            // Update CSS variable for template
+            document.documentElement.style.setProperty('--images-folder', selectedFolder);
+            
+            alert(`Folder paths updated to: images/${selectedFolder}/\n\nDon't forget to rename your actual folder in GitHub to match!`);
+        }
+    </script>
+</body>
+</html>
