@@ -112,15 +112,16 @@
             transform: translateY(-2px);
         }
 
-        /* Mobile menu toggle */
-        .menu-toggle {
+        /* Mobile WhatsApp Button - Hidden by default */
+        .mobile-whatsapp {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #5a4a42;
-            cursor: pointer;
         }
+
+        .mobile-whatsapp .whatsapp-btn {
+            display: none;
+        }
+
+
 
         /* Main sections */
         main {
@@ -604,28 +605,31 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+            .logo {
+                display: none;
             }
 
-            nav {
-                position: fixed;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: white;
-                padding: 2rem;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-                transition: top 0.3s ease;
+            /* Hide desktop WhatsApp button on mobile */
+            .whatsapp-btn {
+                display: none !important;
             }
 
-            nav.active {
-                top: 80px;
+            /* Show mobile WhatsApp section on mobile */
+            .mobile-whatsapp {
+                display: block !important;
+                text-align: center;
+                margin: 1rem 0;
+                padding: 0 1rem;
             }
 
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
+            /* Style mobile WhatsApp button on mobile */
+            .mobile-whatsapp .whatsapp-btn {
+                display: inline-flex !important;
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+                max-width: 280px;
+                justify-content: center;
+                margin: 0 auto;
             }
 
             .hero-content {
@@ -693,51 +697,7 @@
             font-family: 'Courier New', monospace;
         }
 
-        .template-code {
-            background: #2d3748;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            position: relative;
-        }
 
-        .template-code pre {
-            margin: 0;
-            padding: 0;
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            overflow-x: auto;
-        }
-
-        .template-code code {
-            background: none;
-            padding: 0;
-            border-radius: 0;
-            color: #e2e8f0;
-        }
-
-        .copy-btn {
-            background: #d6b46a;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: #c9a665;
-        }
-
-        .copy-btn.copied {
-            background: #25d366;
-        }
 
         /* CSS Variables for easy folder name changes */
         :root {
@@ -764,14 +724,19 @@
                 </ul>
             </nav>
             
+            <!-- Desktop WhatsApp Button -->
             <a href="https://wa.me/447510350010?text=Hello! I'm interested in your cakes." class="whatsapp-btn">
                 <i class="fab fa-whatsapp"></i>
                 WhatsApp
             </a>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
+        </div>
+        
+        <!-- Mobile WhatsApp Button - Centered below menu -->
+        <div class="mobile-whatsapp">
+            <a href="https://wa.me/447510350010?text=Hello! I'm interested in your cakes." class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
         </div>
     </header>
 
@@ -998,42 +963,7 @@
                     </div>
                 </div>
 
-                <!-- Instructions for adding new cakes -->
-                <div class="add-instructions">
-                    <h3>🌟 Add Your New Cakes Here</h3>
-                    <p>To add new cakes to your gallery, simply copy this template and add your cake details:</p>
-                    <div class="template-code">
-                        <div class="copy-btn" onclick="copyTemplate()">📋 Copy Template</div>
-                        <pre><code>&lt;div class="catalog-item" data-category="your-category"&gt;
-    &lt;img src="images/cakes/your-image.jpg" alt="Your Cake Name" loading="lazy"&gt;
-    &lt;div class="catalog-item-content"&gt;
-        &lt;h3&gt;Your Cake Name&lt;/h3&gt;
-        &lt;p class="flavor"&gt;Flavor Description&lt;/p&gt;
-        &lt;p&gt;Your cake description here...&lt;/p&gt;
-        &lt;div class="ingredients"&gt;
-            &lt;strong&gt;Contains:&lt;/strong&gt; Ingredients list
-        &lt;/div&gt;
-        &lt;div class="price"&gt;£XX&lt;/div&gt;
-        &lt;button class="btn-primary" onclick="orderCake('Your Cake Name')"&gt;Order This&lt;/button&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-                    </div>
-                    <p style="margin-top: 1rem; color: #7a6a62;"><strong>Categories to use:</strong> <code>birthday</code>, <code>baby</code>, <code>corporate</code>, <code>themed</code>, <code>wedding</code></p>
-                    
-                    <div style="margin-top: 2rem; padding: 1rem; background: #e8f5e8; border-radius: 10px;">
-                        <h4 style="color: #2d5a2d; margin-bottom: 0.5rem;">📁 Easy Folder Renaming</h4>
-                        <p style="color: #2d5a2d; margin-bottom: 1rem;">Want to rename your images folder? Just change the name below and all paths will update automatically!</p>
-                        <label style="display: block; margin-bottom: 0.5rem; color: #2d5a2d; font-weight: 600;">Current folder name:</label>
-                        <select id="folderName" onchange="updateFolderPaths()" style="padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;">
-                            <option value="cakes">cakes (current)</option>
-                            <option value="photos">photos</option>
-                            <option value="gallery">gallery</option>
-                            <option value="cakes-2025">cakes-2025</option>
-                            <option value="my-cakes">my-cakes</option>
-                        </select>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #2d5a2d;">After changing, make sure to rename your folder in GitHub to match!</p>
-                    </div>
-                </div>
+
             </div>
         </section>
 
@@ -1173,7 +1103,7 @@
                         <i class="fas fa-envelope"></i>
                         <h3>Email</h3>
                         <p>Send us your detailed requirements</p>
-                        <a href="/cdn-cgi/l/email-protection#cba2a5ada48bacb2bea7b9a4b8aea8aaa0aeb8e5a8a4a6"><span class="__cf_email__" data-cfemail="147d7a727b54736d6178667b677177757f71673a777b79">[email&#160;protected]</span></a>
+                        <a href="/cdn-cgi/l/email-protection#3851565e57785f414d544a574b5d5b59535d4b165b5755"><span class="__cf_email__" data-cfemail="84edeae2ebc4e3fdf1e8f6ebf7e1e7e5efe1f7aae7ebe9">[email&#160;protected]</span></a>
                     </div>
                     
                     <div class="contact-item">
@@ -1213,20 +1143,6 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const nav = document.getElementById('nav');
-
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('active');
-            });
-        });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1320,54 +1236,7 @@
             observer.observe(el);
         });
 
-        // Copy template function
-        function copyTemplate() {
-            const templateCode = `<div class="catalog-item" data-category="your-category">
-    <img src="images/cakes/your-image.jpg" alt="Your Cake Name" loading="lazy">
-    <div class="catalog-item-content">
-        <h3>Your Cake Name</h3>
-        <p class="flavor">Flavor Description</p>
-        <p>Your cake description here...</p>
-        <div class="ingredients">
-            <strong>Contains:</strong> Ingredients list
-        </div>
-        <div class="price">£XX</div>
-        <button class="btn-primary" onclick="orderCake('Your Cake Name')">Order This</button>
-    </div>
-</div>`;
-            
-            navigator.clipboard.writeText(templateCode).then(() => {
-                const copyBtn = document.querySelector('.copy-btn');
-                copyBtn.textContent = '✅ Copied!';
-                copyBtn.classList.add('copied');
-                
-                setTimeout(() => {
-                    copyBtn.textContent = '📋 Copy Template';
-                    copyBtn.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Template code copied! Check your clipboard.');
-            });
-        }
 
-        // Update folder paths function
-        function updateFolderPaths() {
-            const selectedFolder = document.getElementById('folderName').value;
-            
-            // Update all image paths
-            const images = document.querySelectorAll('img[src*="images/"]');
-            images.forEach(img => {
-                const currentSrc = img.src;
-                const newSrc = currentSrc.replace(/images\/[^\/]+\//, `images/${selectedFolder}/`);
-                img.src = newSrc;
-            });
-            
-            // Update CSS variable for template
-            document.documentElement.style.setProperty('--images-folder', selectedFolder);
-            
-            alert(`Folder paths updated to: images/${selectedFolder}/\n\nDon't forget to rename your actual folder in GitHub to match!`);
-        }
     </script>
 </body>
 </html>
