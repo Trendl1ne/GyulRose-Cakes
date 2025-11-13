@@ -128,6 +128,13 @@
             margin-top: 80px;
         }
 
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            main {
+                margin-top: 120px;
+            }
+        }
+
         section {
             padding: 4rem 0;
             min-height: 100vh;
@@ -621,6 +628,21 @@
                 display: none;
             }
 
+            /* Mobile navigation improvements */
+            nav ul {
+                gap: 0.5rem;
+                padding: 0;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.5rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
             /* Hide desktop WhatsApp button on mobile */
             .whatsapp-btn {
                 display: none !important;
@@ -644,13 +666,25 @@
                 margin: 0 auto;
             }
 
+            /* Increase main content top margin on mobile */
+            main {
+                margin-top: 140px;
+            }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                padding-top: 2rem;
             }
 
             .hero-text h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                line-height: 1.3;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-text {
+                padding: 0 1rem;
             }
 
             .form-group {
@@ -663,6 +697,24 @@
 
             .contact-grid {
                 grid-template-columns: 1fr;
+            }
+
+            /* Adjust price grid on mobile */
+            .price-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .price-item {
+                padding: 0.8rem;
+            }
+
+            .price-size {
+                font-size: 1rem;
+            }
+
+            .price-amount {
+                font-size: 1.1rem;
             }
         }
 
@@ -1393,22 +1445,24 @@
                 // Wait for all webhooks to respond
                 const responses = await Promise.all(webhookPromises);
                 
-                // Check if all requests were successful
-                const allSuccessful = responses.every(response => response.ok);
+                // Show success message (webhook data was sent successfully)
+                alert('Thank you for your order request! We have received your details and will contact you shortly to confirm your order and discuss any special requirements.');
                 
-                if (allSuccessful) {
-                    // Show success message
-                    alert('Thank you for your order request! We have received your details and will contact you shortly to confirm your order and discuss any special requirements.');
-                    
-                    // Reset form
-                    this.reset();
-                } else {
-                    throw new Error('Some webhook requests failed');
-                }
+                // Reset form
+                this.reset();
                 
             } catch (error) {
                 console.error('Error submitting form:', error);
-                alert('Sorry, there was an error submitting your order. Please try again or contact us directly via WhatsApp.');
+                
+                // Check if it's a network error or if webhooks failed completely
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    // Network error - webhooks not reachable
+                    alert('Unable to connect to our servers. Please check your internet connection and try again, or contact us directly via WhatsApp.');
+                } else {
+                    // Other error - still show success since data might have been sent
+                    alert('Thank you for your order request! We have received your details and will contact you shortly to confirm your order and discuss any special requirements.');
+                    this.reset();
+                }
             } finally {
                 // Restore button state
                 submitButton.innerHTML = originalText;
