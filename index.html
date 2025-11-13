@@ -286,6 +286,12 @@
             object-fit: cover;
             border-radius: 15px;
             margin-bottom: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cake-card img:hover {
+            transform: scale(1.05);
         }
 
         .cake-card h3 {
@@ -382,6 +388,12 @@
             width: 100%;
             height: 220px;
             object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .catalog-item img:hover {
+            transform: scale(1.05);
         }
 
         .catalog-item-content {
@@ -707,6 +719,128 @@
         .img-path {
             /* This class will be updated by JavaScript for easy folder renaming */
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Price List Styles */
+        .price-list {
+            background: #f7f0e8;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 2px solid #d6b46a;
+        }
+
+        .price-list h3 {
+            color: #d6b46a;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .price-size {
+            font-weight: 600;
+            color: #5a4a42;
+            font-size: 1.1rem;
+        }
+
+        .price-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #d6b46a;
+            margin-top: 0.5rem;
+        }
+
+        .price-note {
+            background: #fff8e1;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #7a6a62;
+            text-align: center;
+            margin-top: 1rem;
+            border: 1px dashed #d6b46a;
+        }
+
+        .price-note strong {
+            color: #5a4a42;
+        }
     </style>
 </head>
 <body>
@@ -975,34 +1109,48 @@
                     <p style="text-align: center; margin-bottom: 2rem; color: #7a6a62;">Fill in your details and we'll get in touch to confirm your order and discuss any special requirements.</p>
                     
                     <form class="order-form" id="orderForm">
-                        <div class="form-group">
-                            <div>
-                                <label for="customerName">Full Name *</label>
-                                <input type="text" id="customerName" name="customerName" required>
+                        <!-- Price List -->
+                        <div class="price-list">
+                            <h3>Cake Size & Pricing Guide</h3>
+                            <div class="price-grid">
+                                <div class="price-item">
+                                    <div class="price-size">6 inch</div>
+                                    <div class="price-amount">approx 35£</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-size">8 inch</div>
+                                    <div class="price-amount">approx 45£</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-size">10 inch</div>
+                                    <div class="price-amount">approx 60£</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-size">12 inch</div>
+                                    <div class="price-amount">approx 75£</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-size">14 inch</div>
+                                    <div class="price-amount">approx 90£</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-size">16 inch</div>
+                                    <div class="price-amount">approx 120£</div>
+                                </div>
                             </div>
-                            <div>
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required>
+                            <div class="price-note">
+                                <strong>Important:</strong> These are approximate prices. The final price will be decided according to your special requests, design complexity, and decoration details.
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div>
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" required>
                             </div>
                             <div>
-                                <label for="occasion">Occasion *</label>
-                                <select id="occasion" name="occasion" required>
-                                    <option value="">Select Occasion</option>
-                                    <option value="Birthday">Birthday</option>
-                                    <option value="Wedding">Wedding</option>
-                                    <option value="Baby Shower">Baby Shower</option>
-                                    <option value="Corporate">Corporate Event</option>
-                                    <option value="Anniversary">Anniversary</option>
-                                    <option value="Graduation">Graduation</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <label for="phoneNumber">Phone Number *</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" required>
                             </div>
                         </div>
                         
@@ -1029,43 +1177,44 @@
                                     <option value="Napoleon">Napoleon</option>
                                     <option value="Medovnik">Medovnik Cake</option>
                                     <option value="Red Velvet">Red Velvet</option>
+                                    <option value="Walnut cake">Walnut cake</option>
+                                    <option value="Cake Sunday">Cake Sunday</option>
                                     <option value="Other">Other (specify in notes)</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="servings">Number of People *</label>
-                                <select id="servings" name="servings" required>
+                                <label for="cakeSize">Cake Size *</label>
+                                <select id="cakeSize" name="cakeSize" required>
                                     <option value="">Select Size</option>
-                                    <option value="6-8 people">6-8 people (Small)</option>
-                                    <option value="12-15 people">12-15 people (Medium)</option>
-                                    <option value="20-25 people">20-25 people (Large)</option>
-                                    <option value="30+ people">30+ people (Extra Large)</option>
-                                    <option value="Wedding size">Wedding size (50+ people)</option>
+                                    <option value="6 inch">6 inch</option>
+                                    <option value="8 inch">8 inch</option>
+                                    <option value="10 inch">10 inch</option>
+                                    <option value="12 inch">12 inch</option>
+                                    <option value="14 inch">14 inch</option>
+                                    <option value="16 inch">16 inch</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <div>
-                                <label for="deliveryDate">Date Needed *</label>
-                                <input type="date" id="deliveryDate" name="deliveryDate" required>
+                                <label for="cakeShape">Cake Shape *</label>
+                                <select id="cakeShape" name="cakeShape" required>
+                                    <option value="">Select Shape</option>
+                                    <option value="Round">Round</option>
+                                    <option value="Square">Square</option>
+                                </select>
                             </div>
                             <div>
-                                <label for="budget">Budget Range</label>
-                                <select id="budget" name="budget">
-                                    <option value="">Select Budget</option>
-                                    <option value="£50-£100">£50-£100</option>
-                                    <option value="£100-£200">£100-£200</option>
-                                    <option value="£200-£300">£200-£300</option>
-                                    <option value="£300+">£300+</option>
-                                </select>
+                                <label for="deliveryDate">Date Needed *</label>
+                                <input type="date" id="deliveryDate" name="deliveryDate" required>
                             </div>
                         </div>
                         
                         <div class="form-group full">
                             <div>
                                 <label for="specialRequests">Special Requests & Cake Description *</label>
-                                <textarea id="specialRequests" name="specialRequests" placeholder="Please describe your ideal cake, color preferences, themes, dietary requirements, or any other special requests..." required></textarea>
+                                <textarea id="specialRequests" name="specialRequests" placeholder="Please describe your ideal cake, color preferences, themes, dietary requirements, design details, or any other special requests..." required></textarea>
                             </div>
                         </div>
                         
@@ -1129,6 +1278,15 @@
         </section>
     </main>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" class="modal-img" src="" alt="">
+            <div id="modalTitle" class="modal-title"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1181,34 +1339,81 @@
         function orderCake(cakeName) {
             document.getElementById('cakeFlavor').value = cakeName;
             document.getElementById('specialRequests').value = `I would like to order a ${cakeName}. Please provide more details about this cake and discuss customization options.`;
+            
+            // Smooth scroll to order section
             document.getElementById('order').scrollIntoView({
                 behavior: 'smooth'
             });
+            
+            // Focus on the cake flavor field
+            setTimeout(() => {
+                document.getElementById('cakeFlavor').focus();
+            }, 800);
         }
 
         // Form submission
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Collect form data
             const formData = new FormData(this);
-            let message = "New Cake Order Request:\n\n";
+            const formObject = {};
             
             for (let [key, value] of formData.entries()) {
-                message += `${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}: ${value}\n`;
+                formObject[key] = value;
             }
             
-            // Create WhatsApp message
-            const whatsappUrl = `https://wa.me/447510350010?text=${encodeURIComponent(message)}`;
+            // Add submission timestamp
+            formObject.submissionTime = new Date().toISOString();
             
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
+            // Webhook URLs
+            const webhookUrls = [
+                'https://n8n-bopk.onrender.com/webhook/e20c256e-b7b7-4a2f-bdba-692b81479d0c',
+                'https://n8n-bopk.onrender.com/webhook-test/e20c256e-b7b7-4a2f-bdba-692b81479d0c'
+            ];
             
-            // Show success message
-            alert('Thank you for your order request! We will contact you shortly via WhatsApp to confirm the details.');
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitButton.disabled = true;
             
-            // Reset form
-            this.reset();
+            try {
+                // Send to both webhooks
+                const webhookPromises = webhookUrls.map(url => 
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formObject)
+                    })
+                );
+                
+                // Wait for all webhooks to respond
+                const responses = await Promise.all(webhookPromises);
+                
+                // Check if all requests were successful
+                const allSuccessful = responses.every(response => response.ok);
+                
+                if (allSuccessful) {
+                    // Show success message
+                    alert('Thank you for your order request! We have received your details and will contact you shortly to confirm your order and discuss any special requirements.');
+                    
+                    // Reset form
+                    this.reset();
+                } else {
+                    throw new Error('Some webhook requests failed');
+                }
+                
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Sorry, there was an error submitting your order. Please try again or contact us directly via WhatsApp.');
+            } finally {
+                // Restore button state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
         });
 
         // Set minimum date for delivery to tomorrow
@@ -1235,6 +1440,72 @@
         document.querySelectorAll('.cake-card, .catalog-item, .contact-item').forEach(el => {
             observer.observe(el);
         });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+
+        // Function to open modal
+        function openModal(imageSrc, imageAlt) {
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            modalImg.alt = imageAlt;
+            
+            // Try to get title from parent elements
+            const cakeCard = imageSrc ? document.querySelector(`img[src="${imageSrc}"]`) : null;
+            let title = '';
+            
+            if (cakeCard) {
+                // Try to find title in parent card
+                const cardElement = cakeCard.closest('.cake-card, .catalog-item');
+                if (cardElement) {
+                    const titleElement = cardElement.querySelector('h3');
+                    if (titleElement) {
+                        title = titleElement.textContent;
+                    }
+                }
+            }
+            
+            modalTitle.textContent = title || imageAlt;
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Add click listeners to all cake images
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event to featured cake images
+            document.querySelectorAll('.cake-card img').forEach(img => {
+                img.addEventListener('click', function() {
+                    openModal(this.src, this.alt);
+                });
+            });
+
+            // Add click event to catalog images
+            document.querySelectorAll('.catalog-item img').forEach(img => {
+                img.addEventListener('click', function() {
+                    openModal(this.src, this.alt);
+                });
+            });
+        });
+
 
 
     </script>
