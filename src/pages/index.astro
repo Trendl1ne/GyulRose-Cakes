@@ -44,7 +44,7 @@ const schema = {
         <div class="hero-social"><span>See the latest cakes</span><SocialLinks /></div>
       </div>
       <div class="hero-visual" aria-label="Featured Gyulrose cake creation">
-        <figure class="hero-slide"><img src={optimizedCakeImage(hero.data.slug)} alt={hero.data.imageAlt} width="820" height="920" fetchpriority="high" /><figcaption><span>{hero.data.flavour}</span><strong>{hero.data.title}</strong><small>From £{hero.data.priceFrom}</small></figcaption></figure>
+        <figure class="hero-slide"><img src={optimizedCakeImage(hero.data.slug)} alt={hero.data.imageAlt} width="820" height="920" fetchpriority="high" /></figure>
         <div class="motion-badge"><span>Real cakes</span><strong>Made to order</strong></div>
       </div>
     </div>
@@ -85,12 +85,8 @@ const schema = {
   .slogan { color:var(--gold); font-family:"Playfair Display",serif; font-style:italic; font-size:clamp(1.15rem,2vw,1.45rem); font-weight:600; margin-top:-4px; }
   .hero-social { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px; color:var(--muted); font-size:.85rem; }
   .hero-visual { position: relative; height:min(76vh,740px); perspective:1200px; }
-  .hero-slide { position:absolute; inset:0; display:grid; grid-template-rows:minmax(0,1fr) auto; gap:10px; margin:0; animation:hero-breathe 10s ease-in-out infinite alternate; }
+  .hero-slide { position:absolute; inset:0; margin:0; animation:hero-breathe 10s ease-in-out infinite alternate; }
   .hero-slide img { width:100%; height:100%; min-height:0; object-fit:contain; object-position:center; background:#f7f0e8; border-radius:34px; box-shadow:0 26px 70px rgba(63,42,35,.2); }
-  .hero-slide figcaption { display:grid; grid-template-columns:1fr auto; gap:2px 12px; padding:10px 16px; color:var(--ink); background:rgba(255,250,246,.94); border:1px solid rgba(117,69,61,.14); border-radius:14px; box-shadow:0 12px 30px rgba(63,42,35,.08); }
-  .hero-slide figcaption span { grid-column:1/-1; text-transform:uppercase; letter-spacing:.1em; font-size:.65rem; }
-  .hero-slide figcaption strong { font-family:"Playfair Display",serif; font-size:1.08rem; }
-  .hero-slide figcaption small { align-self:center; }
   .motion-badge { position:absolute; z-index:6; right:-22px; top:18px; width:104px; aspect-ratio:1; display:grid; place-content:center; text-align:center; color:#3f342e; background:linear-gradient(135deg,var(--rose),#c9a665); border-radius:50%; box-shadow:var(--shadow); animation:badge-turn 16s linear infinite; }
   .motion-badge span,.motion-badge strong{display:block}.motion-badge span{font-size:.64rem;text-transform:uppercase;letter-spacing:.1em}.motion-badge strong{font-family:"Playfair Display",serif;max-width:8ch;line-height:1.05}
   .gallery-preview { background:#fff; }
