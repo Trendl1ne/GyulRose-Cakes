@@ -10,6 +10,7 @@ import { optimizedCakeImage } from "../data/images";
 
 const cakes = (await getCollection("cakes", ({ data }) => data.published)).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
 const featured = cakes.slice(0, 6);
+const heroSlides = cakes.slice(0, 5);
 const hero = cakes.find((cake) => cake.data.image.includes("9f3a8b4f")) ?? cakes[0];
 const schema = {
   "@context": "https://schema.org",
@@ -44,9 +45,9 @@ const schema = {
         <div class="hero-social"><span>See the latest cakes</span><SocialLinks /></div>
         <p class="hero-note">Starting from £35. Final quotes depend on size, design and decoration.</p>
       </div>
-      <div class="hero-visual">
-        <img src={optimizedCakeImage(hero.data.slug)} alt={hero.data.imageAlt} width="820" height="920" fetchpriority="high" />
-        <div class="floating-card"><strong>Made to order</strong><span>Tell us your date, servings and idea. We will confirm availability and price.</span></div>
+      <div class="hero-visual" aria-label="A rotating selection of real Gyulrose cake creations">
+        {heroSlides.map((cake, index) => <figure class={`hero-slide hero-slide-${index + 1}`}><img src={optimizedCakeImage(cake.data.slug)} alt={index === 0 ? cake.data.imageAlt : ""} width="820" height="920" fetchpriority={index === 0 ? "high" : undefined} /><figcaption><span>{cake.data.flavour}</span><strong>{cake.data.title}</strong><small>From £{cake.data.priceFrom}</small></figcaption></figure>)}
+        <div class="motion-badge"><span>Real cakes</span><strong>Made to order</strong></div>
       </div>
     </div>
   </section>
@@ -108,13 +109,16 @@ const schema = {
   .hero-copy h1 { font-size:clamp(2.35rem, 5.3vw, 4.15rem); }
   .hero-note { margin-top: 18px; color: var(--muted); font-size: .9rem; }
   .hero-social { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px; color:var(--muted); font-size:.85rem; }
-  .hero-visual { position: relative; }
-  .hero-visual > img { width: 100%; height: min(56vh, 530px); object-fit: cover; border-radius: 34px; box-shadow: var(--shadow); }
-  .floating-card { position: absolute; left: -30px; bottom: 24px; max-width: 300px; background: rgba(255,255,255,.96); border-radius: 18px; padding: 17px; box-shadow: var(--shadow); }
-  .floating-card strong, .floating-card span { display: block; }
-  .floating-card span { margin-top: 5px; color: var(--muted); font-size: .84rem; }
-  .hero-visual > img { animation: hero-breathe 10s ease-in-out infinite alternate; }
-  .floating-card { animation: gentle-float 4s ease-in-out infinite; }
+  .hero-visual { position: relative; height:min(56vh,530px); perspective:1200px; }
+  .hero-slide { position:absolute; inset:0; margin:0; opacity:0; transform:translate3d(8%,4%,0) rotate(2deg) scale(.92); animation:cake-show 25s infinite cubic-bezier(.22,.75,.25,1); }
+  .hero-slide img { width:100%; height:100%; object-fit:cover; border-radius:34px; box-shadow:0 26px 70px rgba(63,42,35,.2); }
+  .hero-slide figcaption { position:absolute; left:18px; right:18px; bottom:18px; display:grid; grid-template-columns:1fr auto; gap:2px 12px; padding:15px 17px; color:#fff; background:rgba(40,27,24,.72); border:1px solid rgba(255,255,255,.25); border-radius:16px; backdrop-filter:blur(13px); }
+  .hero-slide figcaption span { grid-column:1/-1; text-transform:uppercase; letter-spacing:.1em; font-size:.65rem; }
+  .hero-slide figcaption strong { font-family:"Playfair Display",serif; font-size:1.08rem; }
+  .hero-slide figcaption small { align-self:center; }
+  .hero-slide-2{animation-delay:5s}.hero-slide-3{animation-delay:10s}.hero-slide-4{animation-delay:15s}.hero-slide-5{animation-delay:20s}
+  .motion-badge { position:absolute; z-index:6; right:-22px; top:18px; width:104px; aspect-ratio:1; display:grid; place-content:center; text-align:center; color:#fff; background:var(--rose); border-radius:50%; box-shadow:var(--shadow); animation:badge-turn 16s linear infinite; }
+  .motion-badge span,.motion-badge strong{display:block}.motion-badge span{font-size:.64rem;text-transform:uppercase;letter-spacing:.1em}.motion-badge strong{font-family:"Playfair Display",serif;max-width:8ch;line-height:1.05}
   .order-section { background: linear-gradient(135deg, #f6e7e1, #fffaf6 55%, #f3ddd8); scroll-margin-top: 70px; }
   .category-grid { margin-top: 32px; }
   .category-card { min-height: 230px; border-radius: var(--radius); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; text-decoration: none; background-size: cover; background-position: center; position: relative; overflow: hidden; }
@@ -137,14 +141,14 @@ const schema = {
   .cta-panel p { max-width: 680px; color: #dfd1cb; }
   .cta-panel .eyebrow { color: #ffd9df; }
   .cta-panel :global(.social-links) { color:#fff; }
-  @keyframes hero-breathe { from { transform:scale(1); } to { transform:scale(1.025); } }
-  @keyframes gentle-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
-  @media(prefers-reduced-motion:reduce){ .hero-visual > img,.floating-card{animation:none} }
+  @keyframes cake-show { 0%{opacity:0;transform:translate3d(8%,4%,0) rotate(2deg) scale(.92)} 4%,17%{opacity:1;transform:translate3d(0,0,0) rotate(0) scale(1)} 20%,100%{opacity:0;transform:translate3d(-7%,-2%,0) rotate(-1deg) scale(1.04)} }
+  @keyframes badge-turn { to{transform:rotate(360deg)} }
+  @media(prefers-reduced-motion:reduce){ .hero-slide{display:none;animation:none}.hero-slide:first-child{display:block;opacity:1;transform:none}.motion-badge{animation:none} }
   @media(max-width: 800px) {
     .hero-grid, .how-grid, .local-grid { grid-template-columns: 1fr; }
     .hero-visual { order: -1; }
-    .hero-visual > img { height: 52vh; min-height: 390px; }
-    .floating-card { left: 12px; right: 12px; max-width: none; }
+    .hero-visual { height:52vh; min-height:390px; }
+    .motion-badge { right:8px; width:92px; }
     .section-heading, .cta-panel { align-items: flex-start; flex-direction: column; }
     .cta-panel { padding: 28px; }
   }
