@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import { site } from "../data/site";
 
 interface Props {
@@ -24,9 +25,8 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />
+    <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex,follow" />}
     <meta property="og:type" content="website" />
@@ -45,9 +45,29 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <Header />
     <main id="main-content"><slot /></main>
     <Footer />
+    <aside class="social-rail"><SocialLinks compact /></aside>
     <div class="mobile-sticky" aria-label="Quick order actions">
       <a class="button button--secondary" href="/order/">Request a quote</a>
       <a class="button button--whatsapp" href={site.whatsapp("Hello GyulRose Cakes, I would like to ask about a cake.")} target="_blank" rel="noreferrer">WhatsApp</a>
     </div>
+    <script is:inline>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+          });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.cake-card, .category-card').forEach((element, index) => {
+          element.classList.add('reveal');
+          element.style.setProperty('--reveal-delay', `${Math.min(index % 6, 4) * 55}ms`);
+          observer.observe(element);
+        });
+      }
+    </script>
   </body>
 </html>
+<style>
+  .social-rail { position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:30; color:var(--rose-dark); background:rgba(255,255,255,.9); padding:8px; border:1px solid var(--line); border-radius:999px; box-shadow:var(--shadow); backdrop-filter:blur(10px); }
+  .social-rail :global(.social-links) { flex-direction:column; }
+  @media(max-width:1100px){ .social-rail{display:none} }
+</style>

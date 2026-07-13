@@ -1,3 +1,6 @@
+@font-face { font-family:"DM Sans"; font-style:normal; font-weight:400 700; font-display:swap; src:url('/fonts/dm-sans-latin.woff2') format('woff2'); }
+@font-face { font-family:"Playfair Display"; font-style:normal; font-weight:600 700; font-display:swap; src:url('/fonts/playfair-display-latin.woff2') format('woff2'); }
+
 :root {
   --ink: #2f2724;
   --muted: #6d625d;
@@ -84,6 +87,9 @@ p { margin: 0 0 18px; }
 .skip-link { position: absolute; top: -80px; left: 16px; z-index: 100; background: #fff; padding: 10px; }
 .skip-link:focus { top: 16px; }
 .mobile-sticky { display: none; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease var(--reveal-delay, 0ms), transform .65s cubic-bezier(.2,.75,.3,1) var(--reveal-delay, 0ms); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } }
 
 @media (max-width: 800px) {
   .section { padding: 54px 0; }

@@ -1,5 +1,5 @@
 ---
-import { categoryMeta, site } from "../data/site";
+import { categoryMeta } from "../data/site";
 import { optimizedCakeImage } from "../data/images";
 const { cake, priority = false } = Astro.props;
 const category = categoryMeta[cake.category]?.label ?? "Made-to-order cake";
@@ -13,21 +13,26 @@ const category = categoryMeta[cake.category]?.label ?? "Made-to-order cake";
     <h3><a href={`/gallery/${cake.slug}/`}>{cake.title}</a></h3>
     <p class="flavour">{cake.flavour}</p>
     <p class="description">{cake.description}</p>
+    <p class="ingredients"><strong>Contains:</strong> {cake.ingredients}</p>
     <div class="cake-footer">
       <strong>From £{cake.priceFrom}</strong>
-      <a href={site.whatsapp(`Hello GyulRose Cakes, I am interested in the ${cake.title}. Is it available for my date?`)} target="_blank" rel="noreferrer">Ask about this cake</a>
+      <a class="order-cake" href={`/?cake=${encodeURIComponent(cake.title)}#order`} data-select-cake={cake.title}>Order this cake</a>
     </div>
   </div>
 </article>
 <style>
-  .cake-card { display: flex; flex-direction: column; height: 100%; }
+  .cake-card { display: flex; flex-direction: column; height: 100%; transition: transform .3s ease, box-shadow .3s ease; }
+  .cake-card:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(63,42,35,.13); }
   .cake-image { aspect-ratio: 1 / 1; background: #f1e9e4; overflow: hidden; }
   .cake-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
   .cake-image:hover img { transform: scale(1.025); }
   h3 { margin: 14px 0 6px; }
   h3 a { text-decoration: none; }
   .flavour { color: var(--rose-dark); font-weight: 700; margin-bottom: 9px; }
-  .description { color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .description { color: var(--muted); }
+  .ingredients { color: var(--muted); font-size: .85rem; padding: 12px; border-radius: 11px; background: var(--cream); }
+  .ingredients strong { color: var(--ink); }
   .cake-footer { margin-top: auto; border-top: 1px solid var(--line); padding-top: 15px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-  .cake-footer a { color: var(--rose-dark); font-weight: 700; font-size: .88rem; }
+  .cake-footer a { color: #fff; background: var(--rose); padding: 9px 13px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: .84rem; }
+  @media(max-width:500px){ .cake-footer { align-items: stretch; flex-direction: column; } .cake-footer a { text-align:center; } }
 </style>

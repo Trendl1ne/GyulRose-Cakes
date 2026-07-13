@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CakeCard from "../components/CakeCard.astro";
 import TrustBar from "../components/TrustBar.astro";
+import OrderForm from "../components/OrderForm.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import { site } from "../data/site";
 import { optimizedCakeImage } from "../data/images";
 
@@ -36,9 +38,10 @@ const schema = {
         <h1>A cake made around your celebration.</h1>
         <p class="lead">Personalised birthday, themed and celebration cakes, handcrafted to match the person, the moment and the flavour you have in mind.</p>
         <div class="actions">
-          <a class="button" href="/order/">Check your date</a>
+          <a class="button" href="#order">Check your date</a>
           <a class="button button--secondary" href="/gallery/">Browse cake ideas</a>
         </div>
+        <div class="hero-social"><span>See the latest cakes</span><SocialLinks /></div>
         <p class="hero-note">Starting from £35. Final quotes depend on size, design and decoration.</p>
       </div>
       <div class="hero-visual">
@@ -69,9 +72,15 @@ const schema = {
     </div>
   </section>
 
+  <section id="order" class="section order-section">
+    <div class="container">
+      <OrderForm compact />
+    </div>
+  </section>
+
   <section class="section section--blush">
     <div class="container how-grid">
-      <div><p class="eyebrow">Simple ordering</p><h2>From your idea to collection or delivery</h2><p class="lead">The form gathers the details needed for a useful quote, without asking you to decide every decoration before speaking to the baker.</p><a class="button" href="/order/">Start your request</a></div>
+      <div><p class="eyebrow">Simple ordering</p><h2>From your idea to collection or delivery</h2><p class="lead">Send the cake, date and size. GyulRose will discuss the remaining details with you, so you do not need to complete a long specification.</p><a class="button" href="#order">Start your request</a></div>
       <ol class="steps">
         <li><span>1</span><div><strong>Share the essentials</strong><p>Date, servings, cake style, flavour, budget and collection or delivery.</p></div></li>
         <li><span>2</span><div><strong>Confirm the design and price</strong><p>GyulRose checks availability and agrees the final details with you.</p></div></li>
@@ -88,7 +97,7 @@ const schema = {
   </section>
 
   <section class="section final-cta">
-    <div class="container cta-panel"><div><p class="eyebrow">Have a date in mind?</p><h2>Tell us what you are planning.</h2><p>Send the date, number of servings and cake idea. GyulRose will confirm availability and prepare a quote.</p></div><div class="actions"><a class="button" href="/order/">Request a quote</a><a class="button button--whatsapp" href={site.whatsapp("Hello GyulRose Cakes, I have a cake date and idea I would like to discuss.")} target="_blank" rel="noreferrer">WhatsApp</a></div></div>
+    <div class="container cta-panel"><div><p class="eyebrow">Still deciding?</p><h2>Save ideas from Instagram and TikTok.</h2><p>Follow GyulRose for new designs, then return to the quick form when you know the style you like.</p></div><SocialLinks /></div>
   </section>
 </BaseLayout>
 <style>
@@ -96,11 +105,15 @@ const schema = {
   .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
   .hero-copy { padding: 30px 0; }
   .hero-note { margin-top: 18px; color: var(--muted); font-size: .9rem; }
+  .hero-social { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px; color:var(--muted); font-size:.85rem; }
   .hero-visual { position: relative; }
   .hero-visual > img { width: 100%; height: min(72vh, 690px); object-fit: cover; border-radius: 34px; box-shadow: var(--shadow); }
   .floating-card { position: absolute; left: -30px; bottom: 24px; max-width: 300px; background: rgba(255,255,255,.96); border-radius: 18px; padding: 17px; box-shadow: var(--shadow); }
   .floating-card strong, .floating-card span { display: block; }
   .floating-card span { margin-top: 5px; color: var(--muted); font-size: .84rem; }
+  .hero-visual > img { animation: hero-breathe 10s ease-in-out infinite alternate; }
+  .floating-card { animation: gentle-float 4s ease-in-out infinite; }
+  .order-section { background: linear-gradient(135deg, #f6e7e1, #fffaf6 55%, #f3ddd8); scroll-margin-top: 70px; }
   .category-grid { margin-top: 32px; }
   .category-card { min-height: 230px; border-radius: var(--radius); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; text-decoration: none; background-size: cover; background-position: center; position: relative; overflow: hidden; }
   .category-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,transparent 15%,rgba(35,20,17,.78)); }
@@ -121,6 +134,10 @@ const schema = {
   .cta-panel { border-radius: 30px; padding: 42px; background: #302724; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 35px; }
   .cta-panel p { max-width: 680px; color: #dfd1cb; }
   .cta-panel .eyebrow { color: #ffd9df; }
+  .cta-panel :global(.social-links) { color:#fff; }
+  @keyframes hero-breathe { from { transform:scale(1); } to { transform:scale(1.025); } }
+  @keyframes gentle-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
+  @media(prefers-reduced-motion:reduce){ .hero-visual > img,.floating-card{animation:none} }
   @media(max-width: 800px) {
     .hero-grid, .how-grid, .local-grid { grid-template-columns: 1fr; }
     .hero-visual { order: -1; }
