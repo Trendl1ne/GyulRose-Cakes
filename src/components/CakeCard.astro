@@ -16,7 +16,7 @@ const category = categoryMeta[cake.category]?.label ?? "Made-to-order cake";
     <p class="ingredients"><strong>Contains:</strong> {cake.ingredients}</p>
     <div class="cake-footer">
       <strong>From £{cake.priceFrom}</strong>
-      <a class="order-cake" href={`/?cake=${encodeURIComponent(cake.title)}#order`} data-select-cake={cake.title}>Order this cake</a>
+      <a class="order-cake" href={`/?cake=${encodeURIComponent(cake.title)}#order`} data-select-cake={cake.title}>Enquire about this cake</a>
     </div>
   </div>
 </article>
@@ -30,9 +30,9 @@ const category = categoryMeta[cake.category]?.label ?? "Made-to-order cake";
   h3 a { text-decoration: none; }
   .flavour { color: var(--rose-dark); font-weight: 700; margin-bottom: 9px; }
   .description { color: var(--muted); }
-  .ingredients { color: var(--muted); font-size: .85rem; padding: 12px; border-radius: 11px; background: var(--cream); }
+  .ingredients { color: var(--muted); font-size: .85rem; padding: 12px; border-radius: 11px; background: #f7f0e8; }
   .ingredients strong { color: var(--ink); }
   .cake-footer { margin-top: auto; border-top: 1px solid var(--line); padding-top: 15px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-  .cake-footer a { color: #fff; background: var(--rose); padding: 9px 13px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: .84rem; }
+  .cake-footer a { color: #3f342e; background: linear-gradient(135deg,var(--rose),#c9a665); padding: 9px 13px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: .84rem; }
   @media(max-width:500px){ .cake-footer { align-items: stretch; flex-direction: column; } .cake-footer a { text-align:center; } }
 </style>

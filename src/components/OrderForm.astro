@@ -1,15 +1,15 @@
 ---
 import { site } from "../data/site";
 import { getCollection } from "astro:content";
-const webhook = import.meta.env.PUBLIC_ORDER_WEBHOOK_URL ?? "";
+const webhook = import.meta.env.PUBLIC_ORDER_WEBHOOK_URL || site.orderWebhook;
 const { compact = false } = Astro.props;
 const cakeOptions = (await getCollection("cakes", ({ data }) => data.published)).map((entry) => entry.data.title).sort((a, b) => a.localeCompare(b));
 ---
 <form id="quote-form" class:list={["quote-form", { compact }]} data-webhook={webhook} data-whatsapp={site.phoneInternational} novalidate>
   <div class="form-intro">
     <p class="eyebrow">Quick cake enquiry</p>
-    <h2>Send only the essentials.</h2>
-    <p>Choose a cake, tell us when and roughly what size. GyulRose will contact you to confirm the rest.</p>
+    <h2>Order your custom cake</h2>
+    <p>Send the essentials and GyulRose will contact you by email or phone to confirm availability, design and price.</p>
   </div>
 
   <div id="cake-selection" class="cake-selection">
@@ -24,6 +24,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   </div>
   <div class="form-grid">
     <label>Full name *<input name="fullName" autocomplete="name" required /></label>
+    <label>Email address *<input name="emailAddress" type="email" autocomplete="email" required /></label>
     <label>Phone number *<input name="phoneNumber" type="tel" autocomplete="tel" required /></label>
     <label>Date needed *<input name="eventDate" type="date" required /></label>
     <label>Cake size *<select name="cakeSize" required><option value="">Choose size</option><option>6 inch</option><option>8 inch</option><option>10 inch</option><option>12 inch</option><option>14 inch</option><option>16 inch</option><option>Not sure yet</option></select></label>
@@ -34,7 +35,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   <label class="consent"><input type="checkbox" name="privacyAccepted" required /> <span>I agree that my details can be used to answer this enquiry. <a href="/privacy/" target="_blank">Privacy notice</a> *</span></label>
   <input class="honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <div class="submit-row">
-    <button class="button" type="submit">Send cake enquiry</button>
+    <button class="button" type="submit">Submit order request</button>
     <a class="whatsapp-shortcut" href={site.whatsapp("Hello GyulRose Cakes, I would like to send a cake photo and check a date.")} target="_blank" rel="noreferrer">Send a photo on WhatsApp</a>
   </div>
   <p class="form-reassurance">No payment now. Your date is confirmed only after GyulRose replies.</p>
@@ -75,7 +76,16 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
     if (values.website) return;
     const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
     if (button) { button.disabled = true; button.textContent = "Preparing…"; }
-    const payload = { ...values, sourcePage: window.location.href, submittedAt: new Date().toISOString() };
+    const payload = {
+      ...values,
+      cakeFlavor: values.flavour || "To discuss",
+      cakeShape: "To discuss",
+      deliveryDate: values.eventDate,
+      specialRequests: `Selected cake: ${values.selectedCake || "Your own idea"}\n${values.designDetails || "No additional notes yet."}`,
+      submissionTime: new Date().toISOString(),
+      sourcePage: window.location.href,
+      submittedAt: new Date().toISOString()
+    };
     const webhook = form.dataset.webhook ?? "";
     try {
       if (webhook) {
@@ -101,7 +111,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
       console.error(error);
       setStatus("The enquiry was not confirmed as delivered. Please use the WhatsApp link.", "error");
     } finally {
-      if (button) { button.disabled = false; button.textContent = "Send cake enquiry"; }
+      if (button) { button.disabled = false; button.textContent = "Submit order request"; }
     }
   });
 </script>
@@ -115,7 +125,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   .cake-selection label { gap: 7px; }
   .cake-selection span { color: var(--rose-dark); font-size: .9rem; }
   .cake-selection input { background:#fff; font-weight:700; }
-  .cake-selection p { margin:7px 0 0; color:var(--muted); font-size:.8rem; }
+  .cake-selection p { margin:7px 0 0; color:#665750; font-size:.8rem; }
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   label { display:flex; flex-direction:column; gap:6px; font-weight:700; font-size:.9rem; }
   input,select,textarea { width:100%; border:1px solid #bdaaa0; border-radius:12px; padding:11px 12px; background:#fff; color:var(--ink); }

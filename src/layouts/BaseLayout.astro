@@ -36,7 +36,7 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(image, site.domain).toString()} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#9c4357" />
+    <meta name="theme-color" content="#d6b46a" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {schemas.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
   </head>
@@ -47,7 +47,7 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <Footer />
     <aside class="social-rail"><SocialLinks compact /></aside>
     <div class="mobile-sticky" aria-label="Quick order actions">
-      <a class="button button--secondary" href="/order/">Request a quote</a>
+      <a class="button button--secondary" href={`mailto:${site.email}`}>Email GyulRose</a>
       <a class="button button--whatsapp" href={site.whatsapp("Hello GyulRose Cakes, I would like to ask about a cake.")} target="_blank" rel="noreferrer">WhatsApp</a>
     </div>
     <script is:inline>

@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CakeCard from "../components/CakeCard.astro";
-import TrustBar from "../components/TrustBar.astro";
 import OrderForm from "../components/OrderForm.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import { site } from "../data/site";
@@ -31,15 +30,16 @@ const schema = {
 };
 ---
 <BaseLayout title="Custom Cakes in Haywards Heath, West Sussex" description={site.primaryDescription} image={hero.data.image} schema={schema}>
-  <section class="hero section">
+  <section id="home" class="hero section">
     <div class="container hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Made in Haywards Heath, West Sussex</p>
-        <h1>A cake made around your celebration.</h1>
-        <p class="lead">Personalised birthday, themed and celebration cakes, handcrafted to match the person, the moment and the flavour you have in mind.</p>
+        <h1>Elegant Cakes for Every Occasion</h1>
+        <p class="slogan">Sweet elegance in every slice</p>
+        <p class="lead">GyulRose Cakes creates elegant, handcrafted cakes for every occasion, blending European recipes with love and creativity. From birthdays to weddings, each cake tells your unique story through taste and beauty.</p>
         <div class="actions">
-          <a class="button" href="#order">Check your date</a>
-          <a class="button button--secondary" href="/gallery/">Browse cake ideas</a>
+          <a class="button" href="#order">Order now</a>
+          <a class="button button--secondary" href="/gallery/">View gallery</a>
         </div>
         <div class="hero-social"><span>See the latest cakes</span><SocialLinks /></div>
       </div>
@@ -49,25 +49,11 @@ const schema = {
       </div>
     </div>
   </section>
-  <TrustBar />
-
-  <section class="section section--white">
+  <section id="cakes" class="section gallery-preview">
     <div class="container">
-      <p class="eyebrow">Start with the occasion</p>
-      <h2>What are you celebrating?</h2>
-      <p class="lead">Choose the closest category, explore real cakes and use any design as a starting point for your own order.</p>
-      <div class="grid grid--3 category-grid">
-        <a class="category-card birthday" href="/birthday-cakes-haywards-heath/"><span>Birthday cakes</span><strong>Personalised for every age and milestone</strong></a>
-        <a class="category-card themed" href="/themed-cakes-haywards-heath/"><span>Children's & themed</span><strong>Characters, hobbies and playful stories</strong></a>
-        <a class="category-card celebration" href="/celebration-cakes-west-sussex/"><span>Celebration cakes</span><strong>Anniversaries, graduations and special moments</strong></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-heading"><div><p class="eyebrow">Real GyulRose creations</p><h2>A few customer favourites</h2></div><a href="/gallery/">See all cakes</a></div>
+      <div class="section-heading"><div><p class="eyebrow">Real GyulRose creations</p><h2>Our cake gallery</h2><p>Browse six customer favourites here, or open the full gallery to explore every cake.</p></div></div>
       <div class="grid grid--3">{featured.map((cake, index) => <CakeCard cake={cake.data} priority={index < 2} />)}</div>
+      <div class="show-all"><a class="button" href="/gallery/">Show all cakes</a></div>
     </div>
   </section>
 
@@ -77,26 +63,17 @@ const schema = {
     </div>
   </section>
 
-  <section class="section section--blush">
-    <div class="container how-grid">
-      <div><p class="eyebrow">Simple ordering</p><h2>From your idea to collection or delivery</h2><p class="lead">Send the cake, date and size. GyulRose will discuss the remaining details with you, so you do not need to complete a long specification.</p><a class="button" href="#order">Start your request</a></div>
-      <ol class="steps">
-        <li><span>1</span><div><strong>Share the essentials</strong><p>Date, servings, cake style, flavour, budget and collection or delivery.</p></div></li>
-        <li><span>2</span><div><strong>Confirm the design and price</strong><p>GyulRose checks availability and agrees the final details with you.</p></div></li>
-        <li><span>3</span><div><strong>Your cake is made to order</strong><p>Collect in Haywards Heath or confirm available delivery for your postcode.</p></div></li>
-      </ol>
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <p class="eyebrow">Get in touch</p>
+      <h2>Choose the easiest way to contact GyulRose</h2>
+      <div class="contact-grid">
+        <a class="contact-card" href={`mailto:${site.email}`}><span aria-hidden="true">&#9993;</span><strong>Email</strong><p>Send detailed requirements or reply to an order enquiry.</p><small>{site.email}</small></a>
+        <a class="contact-card" href={site.whatsapp("Hello GyulRose Cakes, I would like to ask about a cake.")} target="_blank" rel="noreferrer"><span aria-hidden="true">&#9742;</span><strong>WhatsApp</strong><p>Ask a quick question or send a cake inspiration photo.</p><small>{site.phoneDisplay}</small></a>
+        <a class="contact-card" href="/delivery-areas/"><span aria-hidden="true">&#8962;</span><strong>Haywards Heath</strong><p>Collection and available delivery across nearby West Sussex.</p><small>View delivery information</small></a>
+      </div>
+      <div class="contact-social"><span>See the latest cakes</span><SocialLinks /></div>
     </div>
-  </section>
-
-  <section class="section section--white">
-    <div class="container local-grid">
-      <div class="local-photo"><img src="/images/cakes/5c2c0b33-9898-48a4-a314-2360dc78159c.jpeg" alt="Personalised floral birthday cake made by GyulRose Cakes" width="720" height="720" loading="lazy" /></div>
-      <div><p class="eyebrow">A local, independent cake maker</p><h2>Made in Haywards Heath, for celebrations across nearby West Sussex.</h2><p class="lead">Each cake is prepared to order rather than selected from a factory range. Bring a colour, theme, photograph or simple idea and use the gallery to show the direction you like.</p><div class="actions"><a class="button button--secondary" href="/about/">About GyulRose</a><a class="button button--secondary" href="/delivery-areas/">Delivery and collection</a></div></div>
-    </div>
-  </section>
-
-  <section class="section final-cta">
-    <div class="container cta-panel"><div><p class="eyebrow">Still deciding?</p><h2>Save ideas from Instagram and TikTok.</h2><p>Follow GyulRose for new designs, then return to the quick form when you know the style you like.</p></div><SocialLinks /></div>
   </section>
 </BaseLayout>
 <style>
@@ -104,7 +81,8 @@ const schema = {
   .hero.section { padding: 34px 0; min-height:calc(100svh - 76px); display:grid; align-items:center; }
   .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
   .hero-copy { padding: 10px 0; }
-  .hero-copy h1 { font-size:clamp(3rem, 6.3vw, 5.35rem); max-width:10ch; }
+  .hero-copy h1 { font-size:clamp(2.9rem, 5.4vw, 4.7rem); max-width:12ch; }
+  .slogan { color:var(--gold); font-family:"Playfair Display",serif; font-style:italic; font-size:clamp(1.15rem,2vw,1.45rem); font-weight:600; margin-top:-4px; }
   .hero-social { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px; color:var(--muted); font-size:.85rem; }
   .hero-visual { position: relative; height:min(68vh,660px); perspective:1200px; }
   .hero-slide { position:absolute; inset:0; display:grid; grid-template-rows:minmax(0,1fr) auto; gap:10px; margin:0; animation:hero-breathe 10s ease-in-out infinite alternate; }
@@ -113,41 +91,33 @@ const schema = {
   .hero-slide figcaption span { grid-column:1/-1; text-transform:uppercase; letter-spacing:.1em; font-size:.65rem; }
   .hero-slide figcaption strong { font-family:"Playfair Display",serif; font-size:1.08rem; }
   .hero-slide figcaption small { align-self:center; }
-  .motion-badge { position:absolute; z-index:6; right:-22px; top:18px; width:104px; aspect-ratio:1; display:grid; place-content:center; text-align:center; color:#fff; background:var(--rose); border-radius:50%; box-shadow:var(--shadow); animation:badge-turn 16s linear infinite; }
+  .motion-badge { position:absolute; z-index:6; right:-22px; top:18px; width:104px; aspect-ratio:1; display:grid; place-content:center; text-align:center; color:#3f342e; background:linear-gradient(135deg,var(--rose),#c9a665); border-radius:50%; box-shadow:var(--shadow); animation:badge-turn 16s linear infinite; }
   .motion-badge span,.motion-badge strong{display:block}.motion-badge span{font-size:.64rem;text-transform:uppercase;letter-spacing:.1em}.motion-badge strong{font-family:"Playfair Display",serif;max-width:8ch;line-height:1.05}
-  .order-section { background: linear-gradient(135deg, #f6e7e1, #fffaf6 55%, #f3ddd8); scroll-margin-top: 70px; }
-  .category-grid { margin-top: 32px; }
-  .category-card { min-height: 230px; border-radius: var(--radius); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; text-decoration: none; background-size: cover; background-position: center; position: relative; overflow: hidden; }
-  .category-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,transparent 15%,rgba(35,20,17,.78)); }
-  .category-card span, .category-card strong { position: relative; }
-  .category-card span { font-weight: 700; font-size: .83rem; text-transform: uppercase; letter-spacing: .08em; }
-  .category-card strong { font-family: "Playfair Display",serif; font-size: 1.55rem; margin-top: 5px; }
-  .birthday { background-image: url('/images/cakes/7adaeb34-c525-46d0-9f77-4cb3f4746b73.jpeg'); }
-  .themed { background-image: url('/images/cakes/17a4c11c-c21c-4fa1-8dfc-2989162bca75.jpeg'); }
-  .celebration { background-image: url('/images/cakes/41a40bf6-2683-4e47-8eec-da9e82ae9ac2.jpeg'); }
+  .gallery-preview { background:#fff; }
+  .order-section { background: linear-gradient(135deg, #f7f0e8, #f9e6e6); scroll-margin-top: 70px; }
   .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 32px; }
-  .section-heading > a { color: var(--rose-dark); font-weight: 700; }
-  .how-grid, .local-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
-  .steps { margin: 0; padding: 0; list-style: none; }
-  .steps li { display: grid; grid-template-columns: 50px 1fr; gap: 15px; padding: 20px 0; border-bottom: 1px solid #dbc9c1; }
-  .steps li > span { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--rose); color: #fff; font-weight: 700; }
-  .steps p { margin: 5px 0 0; color: var(--muted); }
-  .local-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 28px; }
-  .cta-panel { border-radius: 30px; padding: 42px; background: #302724; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 35px; }
-  .cta-panel p { max-width: 680px; color: #dfd1cb; }
-  .cta-panel .eyebrow { color: #ffd9df; }
-  .cta-panel :global(.social-links) { color:#fff; }
+  .section-heading p { color:var(--muted); max-width:62ch; }
+  .show-all { display:flex; justify-content:center; margin-top:36px; }
+  .contact-section { background:#fff; text-align:center; }
+  .contact-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin-top:34px; text-align:center; }
+  .contact-card { display:flex; flex-direction:column; align-items:center; min-height:230px; padding:28px; border-radius:var(--radius); background:var(--cream); border:1px solid var(--line); text-decoration:none; box-shadow:0 10px 30px rgba(90,74,66,.07); transition:transform .25s ease,box-shadow .25s ease; }
+  .contact-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+  .contact-card > span { display:grid; place-items:center; width:52px; height:52px; margin-bottom:14px; color:#3f342e; background:var(--gold); border-radius:50%; font-size:1.4rem; }
+  .contact-card strong { font-family:"Playfair Display",serif; font-size:1.4rem; }
+  .contact-card p { color:var(--muted); margin:10px 0; }
+  .contact-card small { color:var(--rose-dark); font-weight:700; margin-top:auto; }
+  .contact-social { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:14px; margin-top:30px; color:var(--muted); }
   @keyframes hero-breathe { from{transform:scale(1)} to{transform:scale(1.025)} }
   @keyframes badge-turn { to{transform:rotate(360deg)} }
   @media(prefers-reduced-motion:reduce){ .hero-slide,.motion-badge{animation:none} }
   @media(max-width: 800px) {
     .hero.section { min-height:auto; padding:26px 0 38px; }
-    .hero-grid, .how-grid, .local-grid { grid-template-columns: 1fr; }
+    .hero-grid { grid-template-columns: 1fr; }
     .hero-visual { order: -1; }
     .hero-visual { height:52vh; min-height:390px; }
     .hero-copy h1 { font-size:clamp(2.7rem,13vw,4.3rem); max-width:12ch; }
     .motion-badge { right:8px; width:92px; }
-    .section-heading, .cta-panel { align-items: flex-start; flex-direction: column; }
-    .cta-panel { padding: 28px; }
+    .section-heading { align-items: flex-start; flex-direction: column; }
+    .contact-grid { grid-template-columns:1fr; }
   }
 </style>
