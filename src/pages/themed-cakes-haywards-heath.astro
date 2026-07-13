@@ -1,0 +1,11 @@
+---
+import { getCollection } from "astro:content";
+import CategoryPage from "../components/CategoryPage.astro";
+const cakes = await getCollection("cakes", ({ data }) => data.published && ["children-themed", "kids"].includes(data.category));
+const faq = [
+  { question: "Can you make a cake around a character or hobby?", answer: "Send the theme, preferred colours and reference ideas with the enquiry. GyulRose will confirm what can be created for the date and budget." },
+  { question: "Are toppers and detailed decorations included in the shown price?", answer: "Gallery prices are starting references. Handmade toppers, tiers and complex decoration can change the final quote." },
+  { question: "Can I change the flavour of a gallery cake?", answer: "Usually the gallery design is only inspiration. Ask for the flavour you prefer and confirm the available options when booking." }
+];
+---
+<CategoryPage title="Children's and Themed Cakes in Haywards Heath" heading="Children's and themed cakes" eyebrow="Personalised celebration cakes" description="Colourful themed cakes for birthdays and special moments, created around characters, hobbies, colours and the person being celebrated." intro="The gallery includes playful, character-led and sculpted designs. Use them to communicate the level of decoration you like, then request a quote for your date and number of servings." cakes={cakes} faq={faq} />

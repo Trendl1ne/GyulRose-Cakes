@@ -1,0 +1,23 @@
+{
+  "name": "gyulrose-cakes-local-redesign",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run optimize:images && astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "extract:legacy": "python scripts/extract_legacy_cakes.py",
+    "optimize:images": "node scripts/optimize_cake_images.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.0",
+    "astro": "7.0.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "sharp": "^0.34.4",
+    "typescript": "6.0.2"
+  }
+}

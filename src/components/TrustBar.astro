@@ -1,0 +1,17 @@
+<section class="trust" aria-label="GyulRose Cakes ordering information">
+  <div class="container trust-grid">
+    <div><strong>Haywards Heath</strong><span>Local cake maker</span></div>
+    <div><strong>Made to order</strong><span>Personalised for your event</span></div>
+    <div><strong>From £35</strong><span>Clear starting-price guide</span></div>
+    <div><strong>Collection or delivery</strong><span>Confirm your postcode when enquiring</span></div>
+  </div>
+</section>
+<style>
+  .trust { background: #302724; color: #fff; }
+  .trust-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; }
+  .trust-grid div { padding: 20px 18px; border-right: 1px solid rgba(255,255,255,.18); }
+  .trust-grid div:last-child { border: 0; }
+  strong, span { display: block; }
+  span { color: #dfd1cb; font-size: .82rem; margin-top: 4px; }
+  @media(max-width: 760px) { .trust-grid { grid-template-columns: 1fr 1fr; } .trust-grid div:nth-child(2) { border-right:0; } }
+</style>

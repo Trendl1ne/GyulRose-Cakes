@@ -1,0 +1,13 @@
+{
+  "slug": "sunday-cake",
+  "title": "Sunday Cake",
+  "category": "celebration",
+  "image": "/images/cakes/bala-nedela-653221a02eac7_600x600.png",
+  "imageAlt": "Sunday Cake",
+  "flavour": "Classic",
+  "description": "A beautifully smooth cake topped with chocolate curls and finished with a golden crumb exterior. A perfect treat for Sunday gatherings and special occasions.",
+  "ingredients": "Sponge layers, cream frosting, chocolate curls, golden crumb coating",
+  "priceFrom": 80.0,
+  "featured": false,
+  "published": true
+}

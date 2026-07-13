@@ -1,0 +1,9 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OrderForm from "../components/OrderForm.astro";
+---
+<BaseLayout title="Request a Custom Cake Quote" description="Request a personalised cake quote from GyulRose Cakes in Haywards Heath. Share the date, servings, budget, design, delivery and allergy details.">
+  <section class="section section--blush"><div class="container order-head"><p class="eyebrow">Availability and quote request</p><h1>Tell us what you are planning.</h1><p class="lead">Complete the form with the event date, servings and cake idea. GyulRose will confirm availability, final price and how the order can be fulfilled.</p></div></section>
+  <section class="section section--white"><div class="container"><OrderForm /></div></section>
+</BaseLayout>
+<style>.order-head{text-align:center}.order-head .lead{margin-inline:auto}</style>

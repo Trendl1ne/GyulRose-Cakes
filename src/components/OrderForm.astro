@@ -1,0 +1,108 @@
+---
+import { site } from "../data/site";
+const webhook = import.meta.env.PUBLIC_ORDER_WEBHOOK_URL ?? "";
+---
+<form id="quote-form" class="quote-form" data-webhook={webhook} data-whatsapp={site.phoneInternational} novalidate>
+  <div class="form-intro">
+    <h2>Tell us about the cake</h2>
+    <p>Required fields are marked *. This is a quote request, not a confirmed booking.</p>
+  </div>
+  <div class="form-grid">
+    <label>Full name *<input name="fullName" autocomplete="name" required /></label>
+    <label>Phone number *<input name="phoneNumber" type="tel" autocomplete="tel" required /></label>
+    <label>Email address *<input name="emailAddress" type="email" autocomplete="email" required /></label>
+    <label>Event date *<input name="eventDate" type="date" required /></label>
+    <label>Occasion *<select name="occasion" required><option value="">Choose one</option><option>Birthday</option><option>Children's or themed celebration</option><option>Anniversary</option><option>Graduation</option><option>Wedding</option><option>Corporate or workplace</option><option>Other celebration</option></select></label>
+    <label>Approximate servings *<input name="servings" type="number" min="4" max="300" placeholder="For example: 20" required /></label>
+    <label>Preferred flavour<select name="flavour"><option value="">Discuss with GyulRose</option><option>Vanilla</option><option>Chocolate</option><option>Strawberry</option><option>Blueberry</option><option>Lemon</option><option>Pistachio</option><option>Red velvet</option><option>Carrot</option><option>Other</option></select></label>
+    <label>Budget range *<select name="budget" required><option value="">Choose a range</option><option>£35–£60</option><option>£60–£90</option><option>£90–£130</option><option>£130–£200</option><option>£200+</option><option>I need guidance</option></select></label>
+    <label>Collection or delivery *<select name="fulfilment" required><option value="">Choose one</option><option>Collection from Haywards Heath</option><option>Delivery enquiry</option><option>I am not sure yet</option></select></label>
+    <label>Delivery postcode<input name="postcode" autocomplete="postal-code" placeholder="Required for delivery quotes" /></label>
+    <label class="full">Cake or style selected<input id="selected-cake" name="selectedCake" placeholder="Cake name from the gallery, if any" /></label>
+    <label class="full">Reference image link<input name="referenceUrl" type="url" placeholder="Optional Google Drive, Instagram or Pinterest link" /></label>
+    <label class="full">Design idea and wording *<textarea name="designDetails" rows="5" required placeholder="Colours, theme, name or age, decorations and anything important to the design"></textarea></label>
+    <label class="full">Allergies or intolerances *<textarea name="allergyDetails" rows="3" required placeholder="Write none if there are no known requirements. Otherwise describe them clearly."></textarea></label>
+  </div>
+  <div class="form-notice"><strong>Important</strong><p>Submitting this form does not confirm availability, price or an allergy-safe order. GyulRose must review and confirm the details with you.</p></div>
+  <label class="consent"><input type="checkbox" name="privacyAccepted" required /> <span>I have read the <a href="/privacy/" target="_blank">privacy notice</a> and agree that my details can be used to answer this cake enquiry. *</span></label>
+  <input class="honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <div class="submit-row"><button class="button" type="submit">Send quote request</button><a href={site.whatsapp("Hello GyulRose Cakes, I would like to send a cake photo and discuss an order.")} target="_blank" rel="noreferrer">Prefer to send a photo? Use WhatsApp</a></div>
+  <div id="form-status" role="status" aria-live="polite"></div>
+</form>
+<script>
+  const form = document.querySelector<HTMLFormElement>("#quote-form");
+  const status = document.querySelector<HTMLElement>("#form-status");
+  const selectedCake = document.querySelector<HTMLInputElement>("#selected-cake");
+  const cakeFromUrl = new URLSearchParams(window.location.search).get("cake");
+  if (cakeFromUrl && selectedCake) selectedCake.value = cakeFromUrl;
+
+  const setStatus = (message: string, kind: "success" | "error" | "info") => {
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.kind = kind;
+  };
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const values = Object.fromEntries(new FormData(form).entries());
+    if (values.website) return;
+    const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
+    if (button) { button.disabled = true; button.textContent = "Sending…"; }
+    const payload = { ...values, sourcePage: window.location.href, submittedAt: new Date().toISOString() };
+    const webhook = form.dataset.webhook ?? "";
+    try {
+      if (webhook) {
+        const response = await fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if (!response.ok) throw new Error(`The enquiry service returned ${response.status}`);
+        setStatus("Your quote request was sent. GyulRose will review the details and contact you.", "success");
+        form.reset();
+      } else {
+        const lines = [
+          "Hello GyulRose Cakes, I would like a cake quote.",
+          `Name: ${values.fullName}`,
+          `Event date: ${values.eventDate}`,
+          `Occasion: ${values.occasion}`,
+          `Servings: ${values.servings}`,
+          `Budget: ${values.budget}`,
+          `Collection/delivery: ${values.fulfilment}`,
+          `Postcode: ${values.postcode || "Not provided"}`,
+          `Cake/style: ${values.selectedCake || "Not selected"}`,
+          `Flavour: ${values.flavour || "To discuss"}`,
+          `Design: ${values.designDetails}`,
+          `Allergies/intolerances: ${values.allergyDetails}`,
+          `Reference: ${values.referenceUrl || "None"}`
+        ];
+        window.open(`https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener,noreferrer");
+        setStatus("Local preview mode: your details were prepared in WhatsApp. The production webhook remains disabled until deployment approval.", "info");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus("The request was not confirmed as delivered. Please use the WhatsApp link instead.", "error");
+    } finally {
+      if (button) { button.disabled = false; button.textContent = "Send quote request"; }
+    }
+  });
+</script>
+<style>
+  .quote-form { max-width: 900px; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 34px; box-shadow: var(--shadow); }
+  .form-intro { margin-bottom: 26px; }
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:19px; }
+  label { display:flex; flex-direction:column; gap:7px; font-weight:700; font-size:.9rem; }
+  input,select,textarea { width:100%; border:1px solid #bdaaa0; border-radius:12px; padding:12px; background:#fff; color:var(--ink); }
+  input:focus,select:focus,textarea:focus { outline:3px solid rgba(156,67,87,.2); border-color:var(--rose); }
+  .full { grid-column:1/-1; }
+  .form-notice { background:var(--blush); padding:16px; border-radius:14px; margin:22px 0; }
+  .form-notice p { margin:5px 0 0; color:var(--muted); }
+  .consent { flex-direction:row; align-items:flex-start; font-weight:500; }
+  .consent input { width:auto; margin-top:5px; }
+  .submit-row { display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin-top:24px; }
+  .submit-row > a { color:var(--rose-dark); font-weight:700; }
+  #form-status { margin-top:16px; padding:0; }
+  #form-status:not(:empty) { padding:14px; border-radius:12px; }
+  #form-status[data-kind="success"] { background:#e4f3ea; color:#174d32; }
+  #form-status[data-kind="error"] { background:#fbe7e7; color:#7f2525; }
+  #form-status[data-kind="info"] { background:#e8f0f7; color:#244e70; }
+  .honeypot { position:absolute; left:-9999px; width:1px; height:1px; }
+  @media(max-width:700px){.quote-form{padding:22px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>

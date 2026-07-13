@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CakeCard from "../../components/CakeCard.astro";
+import { categoryMeta, site } from "../../data/site";
+
+export async function getStaticPaths() {
+  const cakes = await getCollection("cakes", ({ data }) => data.published);
+  return cakes.map((cake) => ({ params: { slug: cake.data.slug }, props: { cake, cakes } }));
+}
+const { cake, cakes } = Astro.props;
+const data = cake.data;
+const related = cakes.filter((item: any) => item.data.category === data.category && item.data.slug !== data.slug).slice(0, 3);
+const category = categoryMeta[data.category];
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: data.title,
+  image: new URL(data.image, site.domain).toString(),
+  description: data.description,
+  brand: { "@type": "Brand", name: site.name },
+  offers: { "@type": "Offer", priceCurrency: "GBP", price: data.priceFrom, availability: "https://schema.org/PreOrder", url: Astro.url.toString() }
+};
+---
+<BaseLayout title={`${data.title} Cake`} description={`${data.description} Made to order in Haywards Heath by GyulRose Cakes. Prices start from £${data.priceFrom}.`} image={data.image} schema={productSchema}>
+  <section class="section"><div class="container product-grid"><img class="product-image" src={data.image} alt={data.imageAlt} width="900" height="900" /><div><a class="back" href="/gallery/">← Back to gallery</a><p class="eyebrow">{category?.label ?? "Made-to-order cake"}</p><h1>{data.title}</h1><p class="lead">{data.description}</p><dl><div><dt>Flavour shown</dt><dd>{data.flavour}</dd></div><div><dt>Starting price</dt><dd>£{data.priceFrom}</dd></div><div><dt>Ingredients shown</dt><dd>{data.ingredients}</dd></div></dl><p class="notice">Every order is confirmed individually. Final price, ingredients, allergens, size, collection or delivery and availability must be agreed before payment.</p><div class="actions"><a class="button" href={`/order/?cake=${encodeURIComponent(data.title)}`}>Request this style</a><a class="button button--whatsapp" href={site.whatsapp(`Hello GyulRose Cakes, I am interested in the ${data.title}. My event date is: `)} target="_blank" rel="noreferrer">Ask on WhatsApp</a></div></div></div></section>
+  {related.length > 0 && <section class="section section--white"><div class="container"><p class="eyebrow">More inspiration</p><h2>Similar cakes</h2><div class="grid grid--3 related">{related.map((item: any) => <CakeCard cake={item.data} />)}</div></div></section>}
+</BaseLayout>
+<style>
+  .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .product-image { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 28px; box-shadow: var(--shadow); }
+  .back { display: inline-block; margin-bottom: 24px; color: var(--rose-dark); font-weight: 700; }
+  dl { margin: 30px 0; border-top: 1px solid var(--line); }
+  dl div { display: grid; grid-template-columns: 150px 1fr; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  dt { font-weight: 700; } dd { margin: 0; color: var(--muted); }
+  .notice { padding: 16px; background: var(--blush); border-radius: 14px; font-size: .9rem; }
+  .related { margin-top: 28px; }
+  @media(max-width:800px){ .product-grid { grid-template-columns: 1fr; } dl div { grid-template-columns: 1fr; gap: 2px; } }
+</style>

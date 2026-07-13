@@ -1,0 +1,11 @@
+---
+import { getCollection } from "astro:content";
+import CategoryPage from "../components/CategoryPage.astro";
+const cakes = await getCollection("cakes", ({ data }) => data.published && data.category === "birthday");
+const faq = [
+  { question: "How much does a birthday cake cost?", answer: "The current size guide starts at approximately £35. Bespoke decoration, tiers, toppers and detailed themes affect the final quote." },
+  { question: "Can I send a photograph or cake reference?", answer: "Yes. Add a link in the quote form or send the reference through WhatsApp. It will be used as inspiration while the final design is agreed with you." },
+  { question: "How much notice should I give?", answer: "Availability changes by date and design. Send the date as early as possible and wait for confirmation before treating the booking as accepted." }
+];
+---
+<CategoryPage title="Birthday Cakes in Haywards Heath" heading="Birthday cakes in Haywards Heath" eyebrow="Made to order in West Sussex" description="Personalised birthday cakes for children, adults and milestone celebrations, designed and made to order by GyulRose Cakes." intro="Choose a real cake below as your starting point, or send a different colour, theme or idea. Size, servings, flavour, decoration and final price are confirmed for each order." cakes={cakes} faq={faq} />

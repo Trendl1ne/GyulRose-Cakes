@@ -1,0 +1,9 @@
+{
+  "name": "GyulRose Cakes",
+  "short_name": "GyulRose",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffaf6",
+  "theme_color": "#9c4357",
+  "icons": []
+}

@@ -1,0 +1,93 @@
+media:
+  input: public/images/cakes
+  output: /images/cakes
+  rename: safe
+  extensions: [jpg, jpeg, png, webp, avif]
+
+content:
+  - name: cakes
+    label: Cake gallery
+    type: collection
+    path: src/content/cakes
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: title
+      fields: [title, category, priceFrom, published, featured]
+      sort: title
+      order: asc
+      search: [title, flavour, description]
+    fields:
+      - name: slug
+        label: URL name
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: "Use lowercase words separated by hyphens, for example pink-birthday-cake"
+        description: "A short unique web address. Use the cake name in lowercase with hyphens."
+      - name: title
+        label: Cake name
+        type: string
+        required: true
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values:
+            - value: birthday
+              label: Birthday cakes
+            - value: children-themed
+              label: Children's and themed cakes
+            - value: celebration
+              label: Celebration cakes
+            - value: corporate
+              label: Corporate cakes
+      - name: image
+        label: Cake photo
+        type: image
+        required: true
+      - name: imageAlt
+        label: Photo description
+        type: string
+        required: true
+        description: "Describe what is visible, for example Pink floral 30th birthday cake."
+      - name: flavour
+        label: Flavour
+        type: string
+        required: true
+      - name: description
+        label: Short description
+        type: text
+        required: true
+        options:
+          minlength: 30
+          maxlength: 350
+      - name: ingredients
+        label: Ingredients shown
+        type: text
+        required: true
+        description: "This must be checked whenever recipes or decorations change."
+      - name: priceFrom
+        label: Starting price in pounds
+        type: number
+        required: true
+        options:
+          min: 0
+          step: 1
+      - name: featured
+        label: Show on homepage
+        type: boolean
+        default: false
+      - name: published
+        label: Visible on website
+        type: boolean
+        default: true
+
+settings:
+  commit:
+    templates:
+      create: "Add cake: {title}"
+      update: "Update cake: {title}"
+      delete: "Remove cake: {title}"

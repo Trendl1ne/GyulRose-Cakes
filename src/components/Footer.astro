@@ -1,0 +1,36 @@
+---
+import { site } from "../data/site";
+---
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <h2>GyulRose Cakes</h2>
+      <p>Made-to-order cakes in Haywards Heath, West Sussex.</p>
+      <a href={site.whatsapp("Hello GyulRose Cakes, I would like to ask about a cake.")} target="_blank" rel="noreferrer">{site.phoneDisplay}</a>
+    </div>
+    <div>
+      <strong>Explore</strong>
+      <a href="/gallery/">Cake gallery</a>
+      <a href="/pricing-flavours/">Prices and flavours</a>
+      <a href="/delivery-areas/">Delivery and collection</a>
+      <a href="/order/">Request a quote</a>
+    </div>
+    <div>
+      <strong>Information</strong>
+      <a href="/allergens/">Allergen information</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/ordering-terms/">Ordering terms</a>
+      <a href={site.instagram} target="_blank" rel="noreferrer">Instagram {site.instagramHandle}</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">© {new Date().getFullYear()} GyulRose Cakes. All rights reserved.</div>
+</footer>
+<style>
+  footer { background: #302724; color: #f9f3ef; padding: 56px 0 24px; }
+  .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 42px; }
+  footer h2 { font-size: 2rem; }
+  footer strong, footer a { display: block; }
+  footer a { margin-top: 10px; color: #f9f3ef; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.18); margin-top: 42px; padding-top: 20px; font-size: .85rem; color: #d8cbc5; }
+  @media(max-width: 700px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } }
+</style>

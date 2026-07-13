@@ -1,0 +1,44 @@
+---
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="GyulRose Cakes home">
+      <span class="brand-mark">GR</span>
+      <span><strong>GyulRose Cakes</strong><small>Haywards Heath</small></span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+    <nav id="site-menu" aria-label="Main navigation">
+      <a href="/gallery/">Gallery</a>
+      <a href="/pricing-flavours/">Prices & flavours</a>
+      <a href="/delivery-areas/">Delivery</a>
+      <a href="/about/">About</a>
+      <a class="button" href="/order/">Request a quote</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>(".menu-button");
+  const menu = document.querySelector<HTMLElement>("#site-menu");
+  menuButton?.addEventListener("click", () => {
+    const open = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!open));
+    menu?.classList.toggle("is-open", !open);
+  });
+</script>
+<style>
+  .site-header { position: sticky; top: 0; z-index: 30; background: rgba(255,250,246,.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .header-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--rose); color: #fff; font-family: "Playfair Display", serif; font-weight: 700; }
+  .brand strong, .brand small { display: block; line-height: 1.2; }
+  .brand small { color: var(--muted); font-size: .72rem; margin-top: 3px; }
+  nav { display: flex; align-items: center; gap: 22px; }
+  nav > a:not(.button) { text-decoration: none; font-weight: 600; font-size: .92rem; }
+  .menu-button { display: none; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 14px; }
+  @media (max-width: 850px) {
+    .menu-button { display: inline-flex; align-items: center; }
+    nav { display: none; position: absolute; top: 76px; left: 16px; right: 16px; padding: 18px; flex-direction: column; align-items: stretch; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+    nav.is-open { display: flex; }
+    nav a { padding: 7px; }
+  }
+</style>

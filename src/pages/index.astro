@@ -1,0 +1,132 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CakeCard from "../components/CakeCard.astro";
+import TrustBar from "../components/TrustBar.astro";
+import { site } from "../data/site";
+import { optimizedCakeImage } from "../data/images";
+
+const cakes = (await getCollection("cakes", ({ data }) => data.published)).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const featured = cakes.slice(0, 6);
+const hero = cakes.find((cake) => cake.data.image.includes("9f3a8b4f")) ?? cakes[0];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "Bakery"],
+  name: site.name,
+  url: site.domain,
+  image: new URL(hero.data.image, site.domain).toString(),
+  telephone: site.phoneDisplay,
+  email: site.email,
+  priceRange: "££",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: site.locality,
+    addressRegion: site.region,
+    addressCountry: site.country
+  },
+  areaServed: [site.locality, site.region],
+  sameAs: [site.instagram, site.tiktok]
+};
+---
+<BaseLayout title="Custom Cakes in Haywards Heath, West Sussex" description={site.primaryDescription} image={hero.data.image} schema={schema}>
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Made in Haywards Heath, West Sussex</p>
+        <h1>A cake made around your celebration.</h1>
+        <p class="lead">Personalised birthday, themed and celebration cakes, handcrafted to match the person, the moment and the flavour you have in mind.</p>
+        <div class="actions">
+          <a class="button" href="/order/">Check your date</a>
+          <a class="button button--secondary" href="/gallery/">Browse cake ideas</a>
+        </div>
+        <p class="hero-note">Starting from £35. Final quotes depend on size, design and decoration.</p>
+      </div>
+      <div class="hero-visual">
+        <img src={optimizedCakeImage(hero.data.slug)} alt={hero.data.imageAlt} width="820" height="920" fetchpriority="high" />
+        <div class="floating-card"><strong>Made to order</strong><span>Tell us your date, servings and idea. We will confirm availability and price.</span></div>
+      </div>
+    </div>
+  </section>
+  <TrustBar />
+
+  <section class="section section--white">
+    <div class="container">
+      <p class="eyebrow">Start with the occasion</p>
+      <h2>What are you celebrating?</h2>
+      <p class="lead">Choose the closest category, explore real cakes and use any design as a starting point for your own order.</p>
+      <div class="grid grid--3 category-grid">
+        <a class="category-card birthday" href="/birthday-cakes-haywards-heath/"><span>Birthday cakes</span><strong>Personalised for every age and milestone</strong></a>
+        <a class="category-card themed" href="/themed-cakes-haywards-heath/"><span>Children's & themed</span><strong>Characters, hobbies and playful stories</strong></a>
+        <a class="category-card celebration" href="/celebration-cakes-west-sussex/"><span>Celebration cakes</span><strong>Anniversaries, graduations and special moments</strong></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow">Real GyulRose creations</p><h2>A few customer favourites</h2></div><a href="/gallery/">See all cakes</a></div>
+      <div class="grid grid--3">{featured.map((cake, index) => <CakeCard cake={cake.data} priority={index < 2} />)}</div>
+    </div>
+  </section>
+
+  <section class="section section--blush">
+    <div class="container how-grid">
+      <div><p class="eyebrow">Simple ordering</p><h2>From your idea to collection or delivery</h2><p class="lead">The form gathers the details needed for a useful quote, without asking you to decide every decoration before speaking to the baker.</p><a class="button" href="/order/">Start your request</a></div>
+      <ol class="steps">
+        <li><span>1</span><div><strong>Share the essentials</strong><p>Date, servings, cake style, flavour, budget and collection or delivery.</p></div></li>
+        <li><span>2</span><div><strong>Confirm the design and price</strong><p>GyulRose checks availability and agrees the final details with you.</p></div></li>
+        <li><span>3</span><div><strong>Your cake is made to order</strong><p>Collect in Haywards Heath or confirm available delivery for your postcode.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container local-grid">
+      <div class="local-photo"><img src="/images/cakes/5c2c0b33-9898-48a4-a314-2360dc78159c.jpeg" alt="Personalised floral birthday cake made by GyulRose Cakes" width="720" height="720" loading="lazy" /></div>
+      <div><p class="eyebrow">A local, independent cake maker</p><h2>Made in Haywards Heath, for celebrations across nearby West Sussex.</h2><p class="lead">Each cake is prepared to order rather than selected from a factory range. Bring a colour, theme, photograph or simple idea and use the gallery to show the direction you like.</p><div class="actions"><a class="button button--secondary" href="/about/">About GyulRose</a><a class="button button--secondary" href="/delivery-areas/">Delivery and collection</a></div></div>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container cta-panel"><div><p class="eyebrow">Have a date in mind?</p><h2>Tell us what you are planning.</h2><p>Send the date, number of servings and cake idea. GyulRose will confirm availability and prepare a quote.</p></div><div class="actions"><a class="button" href="/order/">Request a quote</a><a class="button button--whatsapp" href={site.whatsapp("Hello GyulRose Cakes, I have a cake date and idea I would like to discuss.")} target="_blank" rel="noreferrer">WhatsApp</a></div></div>
+  </section>
+</BaseLayout>
+<style>
+  .hero { overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
+  .hero-copy { padding: 30px 0; }
+  .hero-note { margin-top: 18px; color: var(--muted); font-size: .9rem; }
+  .hero-visual { position: relative; }
+  .hero-visual > img { width: 100%; height: min(72vh, 690px); object-fit: cover; border-radius: 34px; box-shadow: var(--shadow); }
+  .floating-card { position: absolute; left: -30px; bottom: 24px; max-width: 300px; background: rgba(255,255,255,.96); border-radius: 18px; padding: 17px; box-shadow: var(--shadow); }
+  .floating-card strong, .floating-card span { display: block; }
+  .floating-card span { margin-top: 5px; color: var(--muted); font-size: .84rem; }
+  .category-grid { margin-top: 32px; }
+  .category-card { min-height: 230px; border-radius: var(--radius); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; text-decoration: none; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+  .category-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,transparent 15%,rgba(35,20,17,.78)); }
+  .category-card span, .category-card strong { position: relative; }
+  .category-card span { font-weight: 700; font-size: .83rem; text-transform: uppercase; letter-spacing: .08em; }
+  .category-card strong { font-family: "Playfair Display",serif; font-size: 1.55rem; margin-top: 5px; }
+  .birthday { background-image: url('/images/cakes/7adaeb34-c525-46d0-9f77-4cb3f4746b73.jpeg'); }
+  .themed { background-image: url('/images/cakes/17a4c11c-c21c-4fa1-8dfc-2989162bca75.jpeg'); }
+  .celebration { background-image: url('/images/cakes/41a40bf6-2683-4e47-8eec-da9e82ae9ac2.jpeg'); }
+  .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 32px; }
+  .section-heading > a { color: var(--rose-dark); font-weight: 700; }
+  .how-grid, .local-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+  .steps { margin: 0; padding: 0; list-style: none; }
+  .steps li { display: grid; grid-template-columns: 50px 1fr; gap: 15px; padding: 20px 0; border-bottom: 1px solid #dbc9c1; }
+  .steps li > span { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--rose); color: #fff; font-weight: 700; }
+  .steps p { margin: 5px 0 0; color: var(--muted); }
+  .local-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 28px; }
+  .cta-panel { border-radius: 30px; padding: 42px; background: #302724; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 35px; }
+  .cta-panel p { max-width: 680px; color: #dfd1cb; }
+  .cta-panel .eyebrow { color: #ffd9df; }
+  @media(max-width: 800px) {
+    .hero-grid, .how-grid, .local-grid { grid-template-columns: 1fr; }
+    .hero-visual { order: -1; }
+    .hero-visual > img { height: 52vh; min-height: 390px; }
+    .floating-card { left: 12px; right: 12px; max-width: none; }
+    .section-heading, .cta-panel { align-items: flex-start; flex-direction: column; }
+    .cta-panel { padding: 28px; }
+  }
+</style>

@@ -1,0 +1,11 @@
+---
+import { getCollection } from "astro:content";
+import CategoryPage from "../components/CategoryPage.astro";
+const cakes = await getCollection("cakes", ({ data }) => data.published && ["celebration", "corporate"].includes(data.category));
+const faq = [
+  { question: "What occasions can the cakes be made for?", answer: "The existing gallery includes graduation, anniversary, workplace and milestone celebration designs. Other occasions can be discussed through the quote form." },
+  { question: "Is delivery available in West Sussex?", answer: "Collection is based in Haywards Heath. Delivery depends on the date, cake and postcode, so it must be confirmed with the quote." },
+  { question: "Can the cake include names, ages or company colours?", answer: "Personalisation can be requested. Send the exact wording, colours and any reference files so they can be checked before the final design is agreed." }
+];
+---
+<CategoryPage title="Celebration Cakes in West Sussex" heading="Celebration cakes for meaningful moments" eyebrow="Haywards Heath and nearby West Sussex" description="Made-to-order anniversary, graduation, workplace and milestone cakes designed around the occasion." intro="Share the occasion, wording, colours, servings and event date. GyulRose will confirm availability and provide a final quote based on the design complexity." cakes={cakes} faq={faq} />

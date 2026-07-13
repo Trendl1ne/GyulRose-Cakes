@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CakeCard from "../../components/CakeCard.astro";
+const cakes = (await getCollection("cakes", ({ data }) => data.published)).sort((a,b) => a.data.title.localeCompare(b.data.title));
+---
+<BaseLayout title="Cake Gallery" description="Browse real birthday, themed and celebration cakes made by GyulRose Cakes in Haywards Heath, West Sussex.">
+  <section class="section gallery-head"><div class="container"><p class="eyebrow">Real cakes, made to order</p><h1>Cake gallery</h1><p class="lead">Use the filters to narrow the gallery. Every cake can be personalised, so treat these as starting points rather than fixed products.</p><div class="filters" role="group" aria-label="Filter cake gallery"><button class="is-active" data-filter="all">All</button><button data-filter="birthday">Birthday</button><button data-filter="children-themed,kids">Children's & themed</button><button data-filter="celebration,corporate">Celebrations</button></div></div></section>
+  <section class="section section--white"><div class="container"><p id="gallery-count" aria-live="polite">Showing {cakes.length} cakes</p><div class="grid grid--3 gallery-grid">{cakes.map((cake) => <div data-category={cake.data.category}><CakeCard cake={cake.data} /></div>)}</div></div></section>
+</BaseLayout>
+<script>
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+  const items = Array.from(document.querySelectorAll<HTMLElement>(".gallery-grid > [data-category]"));
+  const count = document.querySelector<HTMLElement>("#gallery-count");
+  buttons.forEach((button) => button.addEventListener("click", () => {
+    const filters = (button.dataset.filter ?? "all").split(",");
+    let visible = 0;
+    items.forEach((item) => {
+      const show = filters.includes("all") || filters.includes(item.dataset.category ?? "");
+      item.hidden = !show;
+      if (show) visible++;
+    });
+    buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+    if (count) count.textContent = `Showing ${visible} cakes`;
+  }));
+</script>
+<style>
+  .gallery-head { background: var(--blush); }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .filters button { border: 1px solid #bdaaa0; border-radius: 999px; background: #fff; padding: 8px 16px; cursor: pointer; }
+  .filters button.is-active { background: var(--rose); color: #fff; border-color: var(--rose); }
+  #gallery-count { color: var(--muted); }
+  .gallery-grid { margin-top: 20px; }
+  [hidden] { display: none !important; }
+</style>
