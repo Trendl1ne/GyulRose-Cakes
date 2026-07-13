@@ -5,7 +5,7 @@ import SocialLinks from "./SocialLinks.astro";
 <footer>
   <div class="container footer-grid">
     <div>
-      <h2>GyulRose Cakes</h2>
+      <a class="footer-wordmark" href="/" aria-label="Gyulrose Cakes home"><img src="/images/gyulrose-logo.webp" alt="" width="64" height="64" /><span>Gyulrose Cakes</span></a>
       <p>Made-to-order cakes in Haywards Heath, West Sussex.</p>
       <a href={site.whatsapp("Hello GyulRose Cakes, I would like to ask about a cake.")} target="_blank" rel="noreferrer">{site.phoneDisplay}</a>
       <div class="footer-social"><SocialLinks /></div>
@@ -29,7 +29,8 @@ import SocialLinks from "./SocialLinks.astro";
 <style>
   footer { background: #302724; color: #f9f3ef; padding: 56px 0 24px; }
   .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 42px; }
-  footer h2 { font-size: 2rem; }
+  .footer-wordmark { display:flex; align-items:center; gap:12px; color:#f9f3ef; font-family:"Playfair Display",serif; font-weight:700; font-size:1.7rem; text-decoration:none; line-height:1.1; }
+  .footer-wordmark img { width:58px; height:58px; border-radius:50%; }
   footer strong, footer a { display: block; }
   footer a { margin-top: 10px; color: #f9f3ef; }
   .footer-social { margin-top:18px; }

@@ -3,8 +3,8 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="GyulRose Cakes home">
-      <span class="brand-mark">GR</span>
-      <span><strong>GyulRose Cakes</strong><small>Haywards Heath</small></span>
+      <img class="brand-logo" src="/images/gyulrose-logo.webp" alt="Gyulrose Cakes" width="58" height="58" />
+      <span><strong>Gyulrose Cakes</strong><small>Haywards Heath</small></span>
     </a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
     <nav id="site-menu" aria-label="Main navigation">
@@ -28,10 +28,11 @@
 <style>
   .site-header { position: sticky; top: 0; z-index: 30; background: rgba(255,250,246,.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
   .header-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-  .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--rose); color: #fff; font-family: "Playfair Display", serif; font-weight: 700; }
-  .brand strong, .brand small { display: block; line-height: 1.2; }
-  .brand small { color: var(--muted); font-size: .72rem; margin-top: 3px; }
+  .brand { display: flex; align-items:center; gap:10px; text-decoration: none; }
+  .brand-logo { width:52px; height:52px; border-radius:50%; object-fit:cover; box-shadow:0 4px 14px rgba(63,42,35,.12); }
+  .brand strong,.brand small { display:block; line-height:1.1; }
+  .brand strong { font-family:"Playfair Display",serif; font-size:1.05rem; }
+  .brand small { color: var(--muted); font-size: .64rem; margin-top: 4px; letter-spacing:.07em; text-transform:uppercase; }
   nav { display: flex; align-items: center; gap: 22px; }
   nav > a:not(.button) { text-decoration: none; font-weight: 600; font-size: .92rem; }
   .menu-button { display: none; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 14px; }

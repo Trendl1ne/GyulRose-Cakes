@@ -14,4 +14,8 @@ for (const file of files) {
   const output = path.join(outputDir, `${cake.slug}.webp`);
   await sharp(source).rotate().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toFile(output);
 }
+await sharp(path.join(root, "public", "images", "gyulrose-logo.png"))
+  .resize({ width: 360, height: 360, fit: "cover" })
+  .webp({ quality: 88, effort: 5 })
+  .toFile(path.join(root, "public", "images", "gyulrose-logo.webp"));
 console.log(`Optimized ${files.length} cake images.`);

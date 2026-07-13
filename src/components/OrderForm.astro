@@ -1,7 +1,9 @@
 ---
 import { site } from "../data/site";
+import { getCollection } from "astro:content";
 const webhook = import.meta.env.PUBLIC_ORDER_WEBHOOK_URL ?? "";
 const { compact = false } = Astro.props;
+const cakeOptions = (await getCollection("cakes", ({ data }) => data.published)).map((entry) => entry.data.title).sort((a, b) => a.localeCompare(b));
 ---
 <form id="quote-form" class:list={["quote-form", { compact }]} data-webhook={webhook} data-whatsapp={site.phoneInternational} novalidate>
   <div class="form-intro">
@@ -10,13 +12,16 @@ const { compact = false } = Astro.props;
     <p>Choose a cake, tell us when and roughly what size. GyulRose will contact you to confirm the rest.</p>
   </div>
 
-  <div id="cake-selection" class="cake-selection" aria-live="polite">
-    <span>Selected cake</span>
-    <strong id="selected-cake-label">Your own idea</strong>
-    <button id="clear-cake" type="button" hidden>Change</button>
+  <div id="cake-selection" class="cake-selection">
+    <label for="selected-cake"><span>Choose or search for a cake</span>
+      <input id="selected-cake" name="selectedCake" list="cake-options" value="Your own idea" autocomplete="off" placeholder="Start typing a cake name…" />
+    </label>
+    <datalist id="cake-options">
+      <option value="Your own idea"></option>
+      {cakeOptions.map((title) => <option value={title}></option>)}
+    </datalist>
+    <p>Pick from the gallery or type your own idea.</p>
   </div>
-
-  <input id="selected-cake" name="selectedCake" type="hidden" value="Your own idea" />
   <div class="form-grid">
     <label>Full name *<input name="fullName" autocomplete="name" required /></label>
     <label>Phone number *<input name="phoneNumber" type="tel" autocomplete="tel" required /></label>
@@ -40,19 +45,14 @@ const { compact = false } = Astro.props;
   const form = document.querySelector<HTMLFormElement>("#quote-form");
   const status = document.querySelector<HTMLElement>("#form-status");
   const selectedCake = document.querySelector<HTMLInputElement>("#selected-cake");
-  const selectedLabel = document.querySelector<HTMLElement>("#selected-cake-label");
-  const clearCake = document.querySelector<HTMLButtonElement>("#clear-cake");
 
   const setCake = (cake: string) => {
     const value = cake || "Your own idea";
     if (selectedCake) selectedCake.value = value;
-    if (selectedLabel) selectedLabel.textContent = value;
-    if (clearCake) clearCake.hidden = value === "Your own idea";
   };
 
   const cakeFromUrl = new URLSearchParams(window.location.search).get("cake");
   if (cakeFromUrl) setCake(cakeFromUrl);
-  clearCake?.addEventListener("click", () => setCake("Your own idea"));
 
   document.addEventListener("click", (event) => {
     const trigger = (event.target as HTMLElement).closest<HTMLElement>("[data-select-cake]");
@@ -111,10 +111,11 @@ const { compact = false } = Astro.props;
   .form-intro { max-width: 680px; margin-bottom: 22px; }
   .form-intro h2 { margin-bottom: 10px; }
   .form-intro > p:last-child { color: var(--muted); }
-  .cake-selection { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; background: var(--blush); border: 1px solid #e7cfc8; border-radius: 15px; padding: 13px 15px; margin-bottom: 20px; }
-  .cake-selection span { color: var(--muted); font-size: .82rem; }
-  .cake-selection strong { color: var(--rose-dark); }
-  .cake-selection button { border: 0; background: transparent; color: var(--rose-dark); font-weight: 700; text-decoration: underline; cursor: pointer; }
+  .cake-selection { background: var(--blush); border: 1px solid #e7cfc8; border-radius: 15px; padding: 14px 15px; margin-bottom: 20px; }
+  .cake-selection label { gap: 7px; }
+  .cake-selection span { color: var(--rose-dark); font-size: .9rem; }
+  .cake-selection input { background:#fff; font-weight:700; }
+  .cake-selection p { margin:7px 0 0; color:var(--muted); font-size:.8rem; }
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   label { display:flex; flex-direction:column; gap:6px; font-weight:700; font-size:.9rem; }
   input,select,textarea { width:100%; border:1px solid #bdaaa0; border-radius:12px; padding:11px 12px; background:#fff; color:var(--ink); }
@@ -134,8 +135,6 @@ const { compact = false } = Astro.props;
   .honeypot { position:absolute; left:-9999px; width:1px; height:1px; }
   @media(max-width:700px){
     .form-grid{grid-template-columns:1fr}.full{grid-column:auto}
-    .cake-selection { grid-template-columns: 1fr auto; }
-    .cake-selection span { grid-column: 1 / -1; }
     .submit-row .button { width:100%; }
     .whatsapp-shortcut { width:100%; text-align:center; }
   }
