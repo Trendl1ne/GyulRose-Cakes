@@ -102,12 +102,14 @@ const schema = {
 </BaseLayout>
 <style>
   .hero { overflow: hidden; }
+  .hero.section { padding: 34px 0; }
   .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
-  .hero-copy { padding: 30px 0; }
+  .hero-copy { padding: 10px 0; }
+  .hero-copy h1 { font-size:clamp(2.35rem, 5.3vw, 4.15rem); }
   .hero-note { margin-top: 18px; color: var(--muted); font-size: .9rem; }
   .hero-social { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px; color:var(--muted); font-size:.85rem; }
   .hero-visual { position: relative; }
-  .hero-visual > img { width: 100%; height: min(72vh, 690px); object-fit: cover; border-radius: 34px; box-shadow: var(--shadow); }
+  .hero-visual > img { width: 100%; height: min(56vh, 530px); object-fit: cover; border-radius: 34px; box-shadow: var(--shadow); }
   .floating-card { position: absolute; left: -30px; bottom: 24px; max-width: 300px; background: rgba(255,255,255,.96); border-radius: 18px; padding: 17px; box-shadow: var(--shadow); }
   .floating-card strong, .floating-card span { display: block; }
   .floating-card span { margin-top: 5px; color: var(--muted); font-size: .84rem; }

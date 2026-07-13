@@ -23,8 +23,8 @@ The build optimizes every cake photograph to a web-friendly WebP while preservin
 
 ## Owner uploads
 
-Cake entries live in `src/content/cakes`. `.pages.yml` exposes them through Pages CMS so the owner can add one photo, cake name, category, description, ingredients and starting price without editing code. See `OWNER-CAKE-UPLOAD-GUIDE.md`.
+Cake entries live in `src/content/cakes`. The unlisted `/owner-upload/` page sends one photo and the cake details to a private n8n workflow. n8n owns the restricted GitHub credential, so the client never needs repository access. See `OWNER-CAKE-UPLOAD-GUIDE.md`.
 
 ## Before production
 
-Confirm all text marked as requiring client approval, connect the order webhook if wanted, authorize Pages CMS, test one owner upload, and only then merge into `main`.
+Confirm all text marked as requiring client approval, connect both n8n webhooks, test one owner upload and rollback, and only then merge into `main`.

@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustBar from "../components/TrustBar.astro";
+import CakeCard from "../components/CakeCard.astro";
+import OrderForm from "../components/OrderForm.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import { optimizedCakeImage } from "../data/images";
+
+const cakes = (await getCollection("cakes", ({ data }) => data.published)).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const slides = cakes.slice(0, 5);
+---
+<BaseLayout title="Motion Homepage Test" description="Experimental motion homepage variation for Gyulrose Cakes." noindex>
+  <section class="motion-hero">
+    <div class="container motion-grid">
+      <div class="motion-copy">
+        <p class="eyebrow">Handmade in Haywards Heath</p>
+        <h1>Watch your cake idea come to life.</h1>
+        <p class="lead">Real Gyulrose creations move through the frame while you choose the style that feels right for your celebration.</p>
+        <div class="actions"><a class="button" href="#motion-gallery">Choose a cake</a><a class="button button--secondary" href="#motion-order">Check your date</a></div>
+        <SocialLinks />
+      </div>
+      <div class="cake-stage" aria-label="A rotating selection of Gyulrose cake creations">
+        {slides.map((cake, index) => <figure class={`cake-slide slide-${index + 1}`}><img src={optimizedCakeImage(cake.data.slug)} alt={index === 0 ? cake.data.imageAlt : ""} width="760" height="900" fetchpriority={index === 0 ? "high" : undefined} /><figcaption><span>{cake.data.flavour}</span><strong>{cake.data.title}</strong><small>From £{cake.data.priceFrom}</small></figcaption></figure>)}
+        <div class="stage-badge"><span>Real cakes</span><strong>Made to order</strong></div>
+      </div>
+    </div>
+    <div class="cake-marquee" aria-hidden="true"><div>{[...slides,...slides].map((cake) => <span>{cake.data.title} <b>✦</b></span>)}</div></div>
+  </section>
+  <TrustBar />
+
+  <section id="motion-gallery" class="section section--white"><div class="container"><p class="eyebrow">Pause on a favourite</p><h2>Choose the cake that starts your idea.</h2><p class="lead">Every design can be adjusted for your colour, occasion, flavour and wording.</p><div class="grid grid--3 motion-cards">{slides.slice(0,3).map((cake) => <CakeCard cake={cake.data} priority />)}</div><div class="actions"><a class="button button--secondary" href="/gallery/">See all 49 cakes</a></div></div></section>
+
+  <section id="motion-order" class="section motion-order"><div class="container"><OrderForm compact /></div></section>
+</BaseLayout>
+<style>
+  .motion-hero { overflow:hidden; background:radial-gradient(circle at 75% 25%,#f1d7cf 0,transparent 33%),linear-gradient(135deg,#fffaf6 0%,#f8eae5 100%); }
+  .motion-grid { min-height:calc(100svh - 76px); display:grid; grid-template-columns:.88fr 1.12fr; gap:56px; align-items:center; padding-block:36px; }
+  .motion-copy { position:relative; z-index:4; }
+  .motion-copy h1 { font-size:clamp(2.7rem,6.2vw,5.7rem); max-width:10ch; }
+  .motion-copy :global(.social-links) { margin-top:24px; color:var(--rose-dark); }
+  .cake-stage { position:relative; min-height:min(72svh,700px); perspective:1200px; }
+  .cake-slide { position:absolute; inset:0; margin:0; opacity:0; transform:translate3d(8%,4%,0) rotate(2deg) scale(.92); animation:cake-show 25s infinite cubic-bezier(.22,.75,.25,1); }
+  .cake-slide img { width:100%; height:100%; object-fit:cover; border-radius:38px; box-shadow:0 30px 80px rgba(62,35,30,.22); }
+  .cake-slide figcaption { position:absolute; left:24px; right:24px; bottom:24px; padding:18px 20px; display:grid; grid-template-columns:1fr auto; gap:2px 12px; color:#fff; background:rgba(40,27,24,.72); border:1px solid rgba(255,255,255,.26); border-radius:18px; backdrop-filter:blur(14px); }
+  .cake-slide figcaption span { grid-column:1/-1; text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; }
+  .cake-slide figcaption strong { font-family:"Playfair Display",serif; font-size:1.25rem; }
+  .cake-slide figcaption small { align-self:center; }
+  .slide-2{animation-delay:5s}.slide-3{animation-delay:10s}.slide-4{animation-delay:15s}.slide-5{animation-delay:20s}
+  .stage-badge { position:absolute; z-index:6; right:-28px; top:24px; width:118px; aspect-ratio:1; display:grid; place-content:center; text-align:center; color:#fff; background:var(--rose); border-radius:50%; box-shadow:var(--shadow); animation:badge-turn 16s linear infinite; }
+  .stage-badge span,.stage-badge strong{display:block}.stage-badge span{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em}.stage-badge strong{font-family:"Playfair Display",serif;max-width:8ch;line-height:1.1}
+  .cake-marquee { overflow:hidden; padding:13px 0; color:#fff; background:#302724; }
+  .cake-marquee div { display:flex; width:max-content; animation:marquee 28s linear infinite; }
+  .cake-marquee span { padding-right:30px; white-space:nowrap; font-family:"Playfair Display",serif; font-size:1.05rem; }
+  .cake-marquee b { color:#e5a9b6; padding-left:30px; }
+  .motion-cards { margin-top:30px; }
+  .motion-order { background:linear-gradient(135deg,#f4ddd7,#fffaf6); }
+  @keyframes cake-show { 0%{opacity:0;transform:translate3d(8%,4%,0) rotate(2deg) scale(.92)} 4%,17%{opacity:1;transform:translate3d(0,0,0) rotate(0) scale(1)} 20%,100%{opacity:0;transform:translate3d(-7%,-2%,0) rotate(-1deg) scale(1.04)} }
+  @keyframes badge-turn { to{transform:rotate(360deg)} }
+  @keyframes marquee { to{transform:translateX(-50%)} }
+  @media(max-width:800px){
+    .motion-grid{grid-template-columns:1fr;min-height:auto;padding-block:26px;gap:28px}.cake-stage{order:-1;min-height:52svh}.motion-copy h1{font-size:clamp(2.65rem,13vw,4.3rem);max-width:12ch}.stage-badge{right:8px;width:96px}.cake-slide figcaption{left:12px;right:12px;bottom:12px}.motion-copy :global(.social-links){margin-top:18px}
+  }
+  @media(prefers-reduced-motion:reduce){.cake-slide{display:none;animation:none}.cake-slide:first-child{display:block;opacity:1;transform:none}.stage-badge,.cake-marquee div{animation:none}}
+</style>
