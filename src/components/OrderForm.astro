@@ -12,6 +12,19 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
     <p>Send the essentials and GyulRose will contact you by email or phone to confirm availability, design and price.</p>
   </div>
 
+  <section class="price-guide" aria-labelledby="price-guide-title">
+    <h3 id="price-guide-title">Cake size & pricing guide</h3>
+    <div class="price-grid">
+      <div><strong>6 inch</strong><span>Approx. £35</span></div>
+      <div><strong>8 inch</strong><span>Approx. £45</span></div>
+      <div><strong>10 inch</strong><span>Approx. £60</span></div>
+      <div><strong>12 inch</strong><span>Approx. £75</span></div>
+      <div><strong>14 inch</strong><span>Approx. £90</span></div>
+      <div><strong>16 inch</strong><span>Approx. £120</span></div>
+    </div>
+    <p><strong>Important:</strong> These are approximate prices. The final price depends on the design, decoration and any special requests.</p>
+  </section>
+
   <div id="cake-selection" class="cake-selection">
     <label for="selected-cake"><span>Choose or search for a cake</span>
       <input id="selected-cake" name="selectedCake" list="cake-options" value="Your own idea" autocomplete="off" placeholder="Start typing a cake name…" />
@@ -121,6 +134,13 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   .form-intro { max-width: 680px; margin-bottom: 22px; }
   .form-intro h2 { margin-bottom: 10px; }
   .form-intro > p:last-child { color: var(--muted); }
+  .price-guide { margin:0 0 20px; padding:18px; background:#fffaf7; border:1px solid var(--line); border-radius:16px; }
+  .price-guide h3 { margin-bottom:14px; text-align:center; font-size:1.25rem; }
+  .price-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+  .price-grid div { display:flex; flex-direction:column; align-items:center; padding:10px 8px; background:#f7f0e8; border-radius:10px; text-align:center; }
+  .price-grid strong { font-size:.86rem; }
+  .price-grid span { color:var(--rose-dark); font-weight:700; font-size:.82rem; font-variant-numeric:tabular-nums; }
+  .price-guide > p { margin:12px 0 0; color:#665750; font-size:.78rem; line-height:1.45; text-align:center; }
   .cake-selection { background: var(--blush); border: 1px solid #e7cfc8; border-radius: 15px; padding: 14px 15px; margin-bottom: 20px; }
   .cake-selection label { gap: 7px; }
   .cake-selection span { color: var(--rose-dark); font-size: .9rem; }
@@ -144,6 +164,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   #form-status[data-kind="info"] { background:#e8f0f7; color:#244e70; }
   .honeypot { position:absolute; left:-9999px; width:1px; height:1px; }
   @media(max-width:700px){
+    .price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     .form-grid{grid-template-columns:1fr}.full{grid-column:auto}
     .submit-row .button { width:100%; }
     .whatsapp-shortcut { width:100%; text-align:center; }
