@@ -49,10 +49,13 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   <input class="honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <div class="submit-row">
     <button class="button" type="submit">Submit order request</button>
-    <a class="whatsapp-shortcut" href={site.whatsapp("Hello GyulRose Cakes, I would like to send a cake photo and check a date.")} target="_blank" rel="noreferrer">Send a photo on WhatsApp</a>
   </div>
   <p class="form-reassurance">No payment now. Your date is confirmed only after GyulRose replies.</p>
   <div id="form-status" role="status" aria-live="polite"></div>
+  <div class="direct-contact">
+    <p>Or contact us directly:</p>
+    <a class="whatsapp-order" href={site.whatsapp("Hello! I would like to place a custom cake order.")} target="_blank" rel="noreferrer">Chat with us on WhatsApp</a>
+  </div>
 </form>
 
 <script>
@@ -155,8 +158,11 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   .consent { flex-direction:row; align-items:flex-start; font-weight:500; margin-top:18px; }
   .consent input { width:auto; margin-top:5px; }
   .submit-row { display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:20px; }
-  .whatsapp-shortcut { color:#176b4b; font-weight:700; }
   .form-reassurance { margin: 12px 0 0; color: var(--muted); font-size: .84rem; }
+  .direct-contact { margin-top:22px; padding-top:20px; border-top:1px solid var(--line); text-align:center; }
+  .direct-contact p { margin:0 0 12px; color:var(--muted); }
+  .whatsapp-order { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 24px; color:#fff; background:linear-gradient(135deg,#25d366,#128c7e); border-radius:999px; box-shadow:0 10px 24px rgba(18,140,126,.2); font-weight:700; text-decoration:none; transition:transform .2s ease,box-shadow .2s ease; }
+  .whatsapp-order:hover { transform:translateY(-2px); box-shadow:0 14px 30px rgba(18,140,126,.28); }
   #form-status { margin-top:14px; }
   #form-status:not(:empty) { padding:13px; border-radius:12px; }
   #form-status[data-kind="success"] { background:#e4f3ea; color:#174d32; }
@@ -167,6 +173,6 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
     .price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     .form-grid{grid-template-columns:1fr}.full{grid-column:auto}
     .submit-row .button { width:100%; }
-    .whatsapp-shortcut { width:100%; text-align:center; }
+    .whatsapp-order { width:100%; }
   }
 </style>
