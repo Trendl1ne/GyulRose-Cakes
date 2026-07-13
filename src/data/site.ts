@@ -5,6 +5,7 @@ export const site = {
   phoneInternational: "447455802400",
   email: "gyulrose84@gmail.com",
   orderWebhook: "https://n8n-bopk.onrender.com/webhook/e20c256e-b7b7-4a2f-bdba-692b81479d0c",
+  googleBusiness: "https://share.google/29nHzDZQb2W9tz76b",
   instagram: "https://instagram.com/gyulok84",
   instagramHandle: "@gyulok84",
   tiktok: "https://tiktok.com/@gyulrose",
