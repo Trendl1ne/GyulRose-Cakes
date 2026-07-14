@@ -556,7 +556,7 @@
     "ingredients": "Vanilla sponge, buttercream and test decorations",
     "priceFrom": 55,
     "featured": false,
-    "published": false
+    "published": true
   },
   {
     "slug": "three-layer-deluxe-chocolate-cake",
