@@ -1,0 +1,13 @@
+{
+  "slug": "system-test-cake-july-2026",
+  "title": "System Test Cake July 2026",
+  "category": "celebration",
+  "image": "/images/cakes/system-test-cake-july-2026.webp",
+  "imageAlt": "Temporary system test celebration cake",
+  "flavour": "Vanilla test flavour",
+  "description": "Temporary automated publishing test cake used to verify the complete owner workflow.",
+  "ingredients": "Vanilla sponge, buttercream and test decorations",
+  "priceFrom": 55,
+  "featured": false,
+  "published": true
+}
