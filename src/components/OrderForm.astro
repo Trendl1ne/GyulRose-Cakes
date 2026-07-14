@@ -27,12 +27,13 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
 
   <div id="cake-selection" class="cake-selection">
     <label for="selected-cake"><span>Choose or search for a cake</span>
-      <input id="selected-cake" name="selectedCake" list="cake-options" value="Your own idea" autocomplete="off" placeholder="Start typing a cake name…" />
+      <input id="selected-cake" name="selectedCake" autocomplete="off" placeholder="Choose a cake or type to search…" role="combobox" aria-autocomplete="list" aria-controls="cake-options" aria-expanded="false" />
     </label>
-    <datalist id="cake-options">
-      <option value="Your own idea"></option>
-      {cakeOptions.map((title) => <option value={title}></option>)}
-    </datalist>
+    <div id="cake-options" class="cake-options" role="listbox" aria-label="Available cakes" hidden>
+      {cakeOptions.map((title) => <button type="button" role="option" data-cake-option={title}>{title}</button>)}
+      <button type="button" role="option" data-cake-option="Your own idea">Your own idea</button>
+      <p class="cake-options-empty" hidden>No matching cake. Continue typing to describe your own idea.</p>
+    </div>
     <p>Pick from the gallery or type your own idea.</p>
   </div>
   <div class="form-grid">
@@ -62,14 +63,52 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   const form = document.querySelector<HTMLFormElement>("#quote-form");
   const status = document.querySelector<HTMLElement>("#form-status");
   const selectedCake = document.querySelector<HTMLInputElement>("#selected-cake");
+  const cakeOptionsPanel = document.querySelector<HTMLElement>("#cake-options");
+  const cakeOptionButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-cake-option]"));
+  const cakeOptionsEmpty = document.querySelector<HTMLElement>(".cake-options-empty");
+
+  const showCakeOptions = () => {
+    if (!selectedCake || !cakeOptionsPanel) return;
+    cakeOptionsPanel.hidden = false;
+    selectedCake.setAttribute("aria-expanded", "true");
+  };
+
+  const hideCakeOptions = () => {
+    if (!selectedCake || !cakeOptionsPanel) return;
+    cakeOptionsPanel.hidden = true;
+    selectedCake.setAttribute("aria-expanded", "false");
+  };
+
+  const filterCakeOptions = () => {
+    const query = selectedCake?.value.trim().toLocaleLowerCase() ?? "";
+    let visible = 0;
+    cakeOptionButtons.forEach((button) => {
+      const matches = !query || (button.dataset.cakeOption ?? "").toLocaleLowerCase().includes(query);
+      button.hidden = !matches;
+      if (matches) visible += 1;
+    });
+    if (cakeOptionsEmpty) cakeOptionsEmpty.hidden = visible > 0;
+  };
 
   const setCake = (cake: string) => {
-    const value = cake || "Your own idea";
-    if (selectedCake) selectedCake.value = value;
+    if (selectedCake) selectedCake.value = cake;
+    filterCakeOptions();
+    hideCakeOptions();
   };
 
   const cakeFromUrl = new URLSearchParams(window.location.search).get("cake");
   if (cakeFromUrl) setCake(cakeFromUrl);
+
+  selectedCake?.addEventListener("focus", () => { filterCakeOptions(); showCakeOptions(); });
+  selectedCake?.addEventListener("click", () => { filterCakeOptions(); showCakeOptions(); });
+  selectedCake?.addEventListener("input", () => { filterCakeOptions(); showCakeOptions(); });
+  selectedCake?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") hideCakeOptions();
+  });
+  cakeOptionButtons.forEach((button) => button.addEventListener("click", () => setCake(button.dataset.cakeOption ?? "")));
+  document.addEventListener("click", (event) => {
+    if (!(event.target as HTMLElement).closest("#cake-selection")) hideCakeOptions();
+  });
 
   document.addEventListener("click", (event) => {
     const trigger = (event.target as HTMLElement).closest<HTMLElement>("[data-select-cake]");
@@ -108,7 +147,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
         const response = await fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
         if (!response.ok) throw new Error(`The enquiry service returned ${response.status}`);
         setStatus("Your enquiry was sent. GyulRose will contact you to confirm the details.", "success");
-        form.reset(); setCake("Your own idea");
+        form.reset(); setCake("");
       } else {
         const lines = [
           "Hello GyulRose Cakes, I would like to check a cake order.",
@@ -148,6 +187,13 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
   .cake-selection label { gap: 7px; }
   .cake-selection span { color: var(--rose-dark); font-size: .9rem; }
   .cake-selection input { background:#fff; font-weight:700; }
+  .cake-options { max-height:280px; margin-top:7px; overflow-y:auto; overscroll-behavior:contain; background:#fff; border:1px solid #bdaaa0; border-radius:12px; box-shadow:0 14px 30px rgba(90,74,66,.14); }
+  .cake-options[hidden] { display:none; }
+  .cake-options button { display:block; width:100%; padding:10px 12px; color:var(--ink); background:#fff; border:0; border-bottom:1px solid #eee4de; text-align:left; font:inherit; font-weight:600; cursor:pointer; }
+  .cake-options button[hidden] { display:none; }
+  .cake-options button:last-of-type { color:var(--rose-dark); border-bottom:0; }
+  .cake-options button:hover,.cake-options button:focus-visible { background:#fff4ef; outline:none; }
+  .cake-options-empty { padding:12px; }
   .cake-selection p { margin:7px 0 0; color:#665750; font-size:.8rem; }
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   label { display:flex; flex-direction:column; gap:6px; font-weight:700; font-size:.9rem; }
