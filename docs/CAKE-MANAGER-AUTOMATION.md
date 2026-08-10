@@ -33,6 +33,7 @@ Before upload, the selected photograph is processed in the client's browser:
 - It is converted to WebP.
 - It is encoded at approximately 84% quality.
 - A preview is shown before publication.
+- On browsers that reject an iPhone RAW/DNG file through `createImageBitmap`, the manager retries through the browser image element decoder before reporting an actionable format error.
 
 This reduces upload size and keeps the public website performant.
 
@@ -156,6 +157,8 @@ The complete workflow was tested against production:
 
 The production workflow was re-tested on 10 August 2026 after a month of inactivity. Authentication returned HTTP 200, the manager loaded all 49 existing cakes, a temporary upload returned HTTP 201, the resulting public page returned HTTP 200, archive changed it to HTTP 404, and restore returned it to HTTP 200. All three GitHub Actions deployments passed. The temporary record and image were then removed and the clean 49-cake site was redeployed.
 
+After the client's first real iPhone upload exposed Safari's rejection of a `.dng` file in `createImageBitmap`, the manager gained a second browser-decoding route plus clearer RAW/HEIC guidance. Production was then tested at a 390 x 844 mobile viewport with `createImageBitmap` deliberately disabled and a `.dng` filename/MIME type. The fallback published successfully with HTTP 201, committed all three assets, deployed through GitHub Actions, and produced a public page returning HTTP 200. The temporary cake was removed afterward. Final acceptance still requires the client to retry her original phone photograph because the deterministic test validates the repaired code path, not that particular camera file.
+
 ## Client operating instructions
 
 ### Publish a cake
@@ -185,7 +188,7 @@ The production workflow was re-tested on 10 August 2026 after a month of inactiv
 
 ## Maintenance notes
 
-- Client feedback after the first real upload should be treated as a future refinement, not unfinished implementation.
+- Do not close an owner workflow after synthetic verification alone. Keep it pending until the client's first real phone upload succeeds.
 - Do not reintroduce a public uploader.
 - Do not give the client access to Gyunay's GitHub account.
 - Do not replace archive with permanent deletion unless recovery and media-retention requirements are reconsidered.
