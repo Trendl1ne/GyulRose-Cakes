@@ -4,7 +4,7 @@
 **Owner interface:** <https://gyulrose-cake-manager.vercel.app>  
 **Public website:** <https://gyulrosecakes.com>  
 **Repository:** `Trendl1ne/GyulRose-Cakes`  
-**Last verified:** 14 July 2026
+**Last verified:** 10 August 2026
 
 ## Purpose
 
@@ -154,6 +154,8 @@ The complete workflow was tested against production:
 9. The private manager login returns HTTP 200.
 10. The final Astro website and Next.js manager production builds both passed.
 
+The production workflow was re-tested on 10 August 2026 after a month of inactivity. Authentication returned HTTP 200, the manager loaded all 49 existing cakes, a temporary upload returned HTTP 201, the resulting public page returned HTTP 200, archive changed it to HTTP 404, and restore returned it to HTTP 200. All three GitHub Actions deployments passed. The temporary record and image were then removed and the clean 49-cake site was redeployed.
+
 ## Client operating instructions
 
 ### Publish a cake
@@ -203,4 +205,3 @@ The complete workflow was tested against production:
 - `manager/lib/github.ts`: repository reads, Git object creation and atomic content commits.
 - `manager/proxy.ts`: access control for pages and API routes.
 - `.github/workflows/deploy-pages.yml`: public website build and deployment.
-
