@@ -286,6 +286,19 @@
     "published": true
   },
   {
+    "slug": "gyulrose-upload-test-10-august-2026",
+    "title": "GyulRose Upload Test 10 August 2026",
+    "category": "celebration",
+    "image": "/images/cakes/gyulrose-upload-test-10-august-2026.jpg",
+    "imageAlt": "Temporary pink celebration cake used to test website uploading",
+    "flavour": "Vanilla test flavour",
+    "description": "Temporary automated cake created to verify the complete GyulRose owner upload workflow.",
+    "ingredients": "Vanilla sponge, buttercream and decorative details",
+    "priceFrom": 55,
+    "featured": false,
+    "published": true
+  },
+  {
     "slug": "heart-chocolate-macaron-cake",
     "title": "Heart Chocolate Macaron Cake",
     "category": "children-themed",
