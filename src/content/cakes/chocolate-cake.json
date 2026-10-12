@@ -1,0 +1,13 @@
+{
+  "slug": "chocolate-cake",
+  "title": "Chocolate Cake",
+  "category": "celebration",
+  "image": "/images/cakes/chocolate-cake.jpg",
+  "imageAlt": "Chocolate vintage cake",
+  "flavour": "Chocolate",
+  "description": "Chocolate feeling with piping chocolate butter cream",
+  "ingredients": "Chocolate sponge with soft chocolate frosting",
+  "priceFrom": 55,
+  "featured": true,
+  "published": true
+}
