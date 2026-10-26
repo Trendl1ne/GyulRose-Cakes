@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import { flavours } from "../data/flavours";
 import { getCollection } from "astro:content";
 const webhook = import.meta.env.PUBLIC_ORDER_WEBHOOK_URL || site.orderWebhook;
 const { compact = false } = Astro.props;
@@ -42,7 +43,7 @@ const cakeOptions = (await getCollection("cakes", ({ data }) => data.published))
     <label>Phone number *<input name="phoneNumber" type="tel" autocomplete="tel" required /></label>
     <label>Date needed *<input name="eventDate" type="date" required /></label>
     <label>Cake size *<select name="cakeSize" required><option value="">Choose size</option><option>6 inch</option><option>8 inch</option><option>10 inch</option><option>12 inch</option><option>14 inch</option><option>16 inch</option><option>Not sure yet</option></select></label>
-    <label>Preferred flavour<select name="flavour"><option value="">Discuss with GyulRose</option><option>Vanilla</option><option>Chocolate</option><option>Strawberry</option><option>Blueberry</option><option>Lemon</option><option>Pistachio</option><option>Red velvet</option><option>Carrot</option><option>Oreo</option><option>Biscoff</option><option>Other</option></select></label>
+    <label>Preferred flavour<select name="flavour"><option value="">Discuss with GyulRose</option>{flavours.map(flavour => <option>{flavour.name}</option>)}</select><a href="/flavours/">Explore all 15 flavours</a></label>
     <label class="full">Anything important?<textarea name="designDetails" rows="3" placeholder="Colour, name, age, theme or allergy. You can also send a photo on WhatsApp."></textarea></label>
   </div>
 

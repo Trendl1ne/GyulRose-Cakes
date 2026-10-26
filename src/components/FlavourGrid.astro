@@ -1,0 +1,27 @@
+---
+import { flavours } from '../data/flavours';
+import FlavourIcon from './FlavourIcon.astro';
+interface Props { preview?: boolean }
+const { preview = false } = Astro.props;
+const items = preview ? flavours.slice(0, 6) : flavours;
+---
+<ul class:list={['flavour-grid', { preview }]} aria-label="Cake flavours">
+  {items.map(flavour => <li class="flavour-card" style={`--flavour-colour:${flavour.colour};--flavour-tint:${flavour.tint}`}>
+    <span class:list={['flavour-art', { pair: 'second' in flavour }]}><FlavourIcon kind={flavour.icon} />{'second' in flavour && <FlavourIcon kind={flavour.second} />}</span>
+    <h3>{flavour.name}</h3>
+  </li>)}
+</ul>
+<style>
+  .flavour-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px; list-style:none; margin:32px 0; padding:0; }
+  .flavour-grid.preview { grid-template-columns:repeat(6,minmax(0,1fr)); }
+  .flavour-card { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:16px; padding:26px 12px 22px; text-align:center; border:1px solid var(--line); background:#fffdfb; border-radius:20px; transition:transform .2s ease,box-shadow .2s ease; }
+  .flavour-art { display:flex; align-items:center; justify-content:center; width:76px; height:76px; flex:none; border-radius:50%; background:var(--flavour-tint); color:var(--flavour-colour); }
+  .flavour-art :global(svg) { width:47px; height:47px; }
+  .flavour-art.pair :global(svg) { width:35px; height:41px; }
+  .flavour-art.pair :global(svg + svg) { margin-left:-5px; margin-top:16px; }
+  h3 { font-family:inherit; font-size:1rem; font-weight:600; line-height:1.45; margin:0; overflow-wrap:normal; }
+  @media(hover:hover) { .flavour-card:hover { transform:translateY(-4px); box-shadow:0 12px 25px rgba(90,74,66,.08); } }
+  @media(max-width:1000px) { .flavour-grid,.flavour-grid.preview { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @media(max-width:550px) { .flavour-grid,.flavour-grid.preview { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; } .flavour-card { padding:20px 10px; gap:12px; } h3 { font-size:.93rem; } }
+  @media(prefers-reduced-motion:reduce) { .flavour-card { transition:none; } .flavour-card:hover { transform:none; } }
+</style>

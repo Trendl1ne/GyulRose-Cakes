@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FlavourGrid from '../components/FlavourGrid.astro';
+---
+<BaseLayout title="Cake Flavours" description="Explore all 15 cake flavours at GyulRose Cakes in Haywards Heath, from vanilla and chocolate to pistachio, Biscoff and chocolate & coffee latte.">
+  <section class="section section--blush"><div class="container flavour-intro"><p class="eyebrow">GyulRose Cakes</p><h1>Find your favourite flavour</h1><p class="lead">Fifteen flavours to choose from, whether you already have a favourite or fancy something different.</p><a class="flavour-link" href="/order/">Have a flavour in mind? Enquire about your cake →</a></div></section>
+  <section class="section section--white"><div class="container"><h2>Our cake flavours</h2><FlavourGrid /><div class="flavour-next"><div><h2>What will your cake be?</h2><p>Tell GyulRose your flavour, occasion and date. You can choose a design from the gallery or share your own idea.</p></div><a class="button" href="/order/">Choose your cake</a></div><p class="allergy-note">Have an allergy or intolerance? <a href="/allergens/">Read our allergen information</a> and discuss your requirements with GyulRose before ordering.</p></div></section>
+</BaseLayout>
+<style>
+  .flavour-intro { max-width:900px; text-align:center; } .flavour-intro h1 { font-size:clamp(2.4rem,5vw,4rem); } .flavour-intro .lead { margin-inline:auto; } .flavour-link { color:var(--rose-dark); font-weight:600; display:inline-block; padding-block:10px; }
+  .flavour-next { display:flex; align-items:center; justify-content:space-between; gap:28px; background:var(--blush); border-radius:var(--radius); padding:32px; margin-top:40px; } .flavour-next p { max-width:60ch; margin-bottom:0; } .flavour-next .button { flex-shrink:0; } .allergy-note { color:var(--muted); font-size:.9rem; max-width:76ch; margin-top:24px; }
+  @media(max-width:650px) { .flavour-next { align-items:stretch; flex-direction:column; padding:24px; } }
+</style>
